@@ -15,6 +15,7 @@ public class PlayerAnimationComponent : MonoBehaviour
     {
         _movementComponent.OnMove += HandleMove;
         _movementComponent.OnJump += HandleJumpUp;
+        _movementComponent.OnGrounded += HandleJumpDown;
     }
     
     //move

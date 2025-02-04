@@ -6,6 +6,7 @@ public class PlayerMovementComponent : MonoBehaviour
 {
     public event Action<float> OnMove;
     public event Action OnJump;
+    public event Action OnGrounded;
     
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -33,7 +34,14 @@ public class PlayerMovementComponent : MonoBehaviour
 
          RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, 0.1f, platformLayer);
          
-         return (hit.collider != null);
+         bool grounded = hit.collider != null;
+
+         if (grounded)
+         {
+             OnGrounded?.Invoke();
+         }
+         
+         return (grounded);
     }
 
     public void Move(float horizontalInput)
