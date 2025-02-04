@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovementComponent : MonoBehaviour
 {
+    public event Action<float> OnMove;
+    public event Action OnJump;
     
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -16,6 +18,7 @@ public class PlayerMovementComponent : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>(); 
+        _playerCollider = GetComponent<BoxCollider2D>();
     }
 
     private void FixedUpdate()
@@ -27,9 +30,9 @@ public class PlayerMovementComponent : MonoBehaviour
     {
          Vector2 raycastOrigin = _playerCollider.bounds.center;
          raycastOrigin.y -= _playerCollider.bounds.extents.y;
-        
+
          RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, 0.1f, platformLayer);
-        
+         
          return (hit.collider != null);
     }
 
@@ -39,6 +42,8 @@ public class PlayerMovementComponent : MonoBehaviour
         velocity.x = horizontalInput * moveSpeed;
         
         _rb.linearVelocityX = velocity.x;
+        
+        OnMove?.Invoke(_rb.linearVelocityX);
     }
 
     public void Jump()
@@ -46,6 +51,7 @@ public class PlayerMovementComponent : MonoBehaviour
         if (_isGrounded)
         {
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
+            OnJump?.Invoke();
         }
     }
 }
