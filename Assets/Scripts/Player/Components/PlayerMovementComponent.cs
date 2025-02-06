@@ -6,8 +6,8 @@ using UnityEngine.InputSystem.LowLevel;
 public class PlayerMovementComponent : MonoBehaviour
 {
     public event Action<Vector2> OnMove;
-    public event Action OnJump;
-    public event Action OnGrounded;
+    public event Action<Vector2> OnJump;
+    public event Action<Vector2> OnGrounded;
     
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
@@ -29,6 +29,7 @@ public class PlayerMovementComponent : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>(); 
         _playerCollider = GetComponent<PlayerCollisionComponent>();
         ChangeState(new IdleState(this, _playerCollider)); 
+        JumpInput = false;
     }
 
     private void FixedUpdate()
@@ -48,13 +49,13 @@ public class PlayerMovementComponent : MonoBehaviour
 
     public void JumpUpEvent()
     {
-        OnJump?.Invoke();
+        OnJump?.Invoke(_rb.linearVelocity);
     }
 
     public void JumpDownEvent()
     {
         JumpInput = false;
-        OnGrounded?.Invoke();
+        OnGrounded?.Invoke(_rb.linearVelocity);
     }
 
     public void Move(float horizontalInput)
@@ -64,7 +65,6 @@ public class PlayerMovementComponent : MonoBehaviour
         
         _rb.linearVelocityX = velocity.x;
          HorizontalInput = horizontalInput;
-         Debug.Log("HORIZONTAL: " + HorizontalInput);
     }
 
     public void Jump()

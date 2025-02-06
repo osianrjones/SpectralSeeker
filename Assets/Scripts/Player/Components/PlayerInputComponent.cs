@@ -1,16 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerMovementComponent))]
+[RequireComponent(typeof(PlayerMovementComponent), typeof(PlayerCollisionComponent))]
 public class PlayerInputComponent : MonoBehaviour
 {
     private PlayerMovementComponent _playerMovement;
+    private PlayerCollisionComponent _playerCollision;
     private Keyboard keyboard;
     private bool hasJumped = false;
 
     void Awake()
     {
         _playerMovement = GetComponent<PlayerMovementComponent>();
+        _playerCollision = GetComponent<PlayerCollisionComponent>();
     }
 
     // Update is called once per frame
@@ -48,7 +50,7 @@ public class PlayerInputComponent : MonoBehaviour
     {
         if (keyboard != null)
         {
-            if (keyboard.spaceKey.isPressed && _playerMovement._isGrounded && !hasJumped)
+            if (keyboard.spaceKey.isPressed && _playerCollision.isGrounded && !hasJumped)
             {
                 hasJumped = true;
                 _playerMovement.Jump();

@@ -1065,6 +1065,7 @@ GameObject:
   - component: {fileID: 932631816}
   - component: {fileID: 932631819}
   - component: {fileID: 932631818}
+  - component: {fileID: 932631820}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -1267,6 +1268,7 @@ MonoBehaviour:
   platformLayer:
     serializedVersion: 2
     m_Bits: 256
+  wallSlideSpeed: 0
 --- !u!114 &932631818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1291,6 +1293,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c653657669818342a31a6d206718a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &932631820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932631809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54e7f274028bb9a479922609de1e0575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1145188881
 GameObject:
   m_ObjectHideFlags: 0

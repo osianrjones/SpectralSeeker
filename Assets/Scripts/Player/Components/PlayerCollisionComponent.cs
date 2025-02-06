@@ -21,7 +21,7 @@ public class PlayerCollisionComponent : MonoBehaviour
     private void Update()
     {
         isGrounded = CheckGrounded();
-        //isWalled = CheckWalled();
+        isWalled = CheckWalled();
     }
 
     public bool CheckGrounded()
@@ -32,7 +32,6 @@ public class PlayerCollisionComponent : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, 0.1f, platformLayer);
          
         bool grounded = hit.collider != null;
-         
         return (grounded);
     }
 

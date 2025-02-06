@@ -12,8 +12,13 @@ public class IdleState : PlayerState
             playerMovement.ChangeState(new RunningState(playerMovement, playerCollision));
         }
 
+        if (playerMovement.JumpInput)
+        {
+            Debug.Log("JUMPED BUT GROUNDED?: " + playerCollision.isGrounded);
+        }
+
         // Transition to Jumping if the player jumps
-        if (playerMovement.JumpInput && playerCollision.isGrounded)
+        if (playerMovement.JumpInput && !playerCollision.isGrounded)
         {
             playerMovement.ChangeState(new JumpingState(playerMovement, playerCollision));
         }

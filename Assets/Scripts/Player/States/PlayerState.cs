@@ -5,8 +5,8 @@ public abstract class PlayerState
 
     public PlayerState(PlayerMovementComponent playerMovement, PlayerCollisionComponent playerCollision)
     {
-        playerMovement = playerMovement;
-        playerCollision = playerCollision;
+        this.playerMovement = playerMovement;
+        this.playerCollision = playerCollision;
     }
 
     public virtual void Enter() { }
