@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovementComponent : MonoBehaviour
 {
-    public event Action<float> OnMove;
+    public event Action<Vector2> OnMove;
     public event Action OnJump;
     public event Action OnGrounded;
     
@@ -14,17 +15,43 @@ public class PlayerMovementComponent : MonoBehaviour
     
     private Rigidbody2D _rb;
     private BoxCollider2D _playerCollider;
-    private bool _isGrounded;
+    private PlayerState _currentState;
+
+    public float HorizontalInput { get; private set; }
+    public bool JumpInput { get; private set; }
+    public bool _isGrounded { get; private set; }
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>(); 
         _playerCollider = GetComponent<BoxCollider2D>();
+        ChangeState(new IdleState(this)); 
     }
 
     private void FixedUpdate()
     {
         _isGrounded = CheckGrounded();
+    }
+
+    private void Update()
+    {
+        _currentState?.Update();
+    }
+
+    public void MoveEvent()
+    {
+        OnMove?.Invoke(_rb.linearVelocity);
+    }
+
+    public void JumpUpEvent()
+    {
+        OnJump?.Invoke();
+    }
+
+    public void JumpDownEvent()
+    {
+        JumpInput = false;
+        OnGrounded?.Invoke();
     }
 
     private bool CheckGrounded()
@@ -35,11 +62,6 @@ public class PlayerMovementComponent : MonoBehaviour
          RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, 0.1f, platformLayer);
          
          bool grounded = hit.collider != null;
-
-         if (grounded)
-         {
-             OnGrounded?.Invoke();
-         }
          
          return (grounded);
     }
@@ -50,8 +72,7 @@ public class PlayerMovementComponent : MonoBehaviour
         velocity.x = horizontalInput * moveSpeed;
         
         _rb.linearVelocityX = velocity.x;
-        
-        OnMove?.Invoke(_rb.linearVelocityX);
+         HorizontalInput = horizontalInput;
     }
 
     public void Jump()
@@ -59,7 +80,15 @@ public class PlayerMovementComponent : MonoBehaviour
         if (_isGrounded)
         {
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
-            OnJump?.Invoke();
-        }
+            JumpInput = true;
+        } 
+    }
+
+    public void ChangeState(PlayerState state)
+    {
+        Debug.Log("State: " + state);
+        _currentState?.Exit();
+        _currentState = state;
+        _currentState.Enter();
     }
 }

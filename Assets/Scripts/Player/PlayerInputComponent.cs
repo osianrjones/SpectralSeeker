@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 public class PlayerInputComponent : MonoBehaviour
 {
     private PlayerMovementComponent _playerMovement;
+    private Keyboard keyboard;
+    private bool hasJumped = false;
+
     void Awake()
     {
         _playerMovement = GetComponent<PlayerMovementComponent>();
@@ -13,7 +16,7 @@ public class PlayerInputComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Keyboard keyboard = Keyboard.current;
+        keyboard = Keyboard.current;
         Mouse mouse = Mouse.current;
 
         if (keyboard == null || mouse == null)
@@ -26,10 +29,34 @@ public class PlayerInputComponent : MonoBehaviour
         
         _playerMovement.Move(horizontal);
 
-        if (keyboard.spaceKey.isPressed)
+        flipSprite(horizontal);
+    }
+
+    private void flipSprite(float horizontal)
+    {
+        if (horizontal > 0)
         {
-            _playerMovement.Jump();
+            GetComponent<SpriteRenderer>().flipX = false;
         }
-        
+        else if (horizontal < 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (keyboard != null)
+        {
+            if (keyboard.spaceKey.isPressed && _playerMovement._isGrounded && !hasJumped)
+            {
+                hasJumped = true;
+                _playerMovement.Jump();
+            }
+            else if (!keyboard.spaceKey.isPressed)
+            {
+                hasJumped = false;
+            }
+        }
     }
 }

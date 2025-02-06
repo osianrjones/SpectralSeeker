@@ -19,14 +19,16 @@ public class PlayerAnimationComponent : MonoBehaviour
     }
     
     //move
-    public void HandleMove(float horizontalInput)
+    public void HandleMove(Vector2 input)
     {
-        _animator.SetFloat("xVelocity", horizontalInput);
+        _animator.SetFloat("xVelocity", Math.Abs(input.x));
+        _animator.SetFloat("yVelocity", input.y);
     }
     
     //jump
     public void HandleJumpUp()
     {
+        Debug.Log("HANDLE JUMP UP");
         _animator.SetBool("isJumping", true);
     }
 
