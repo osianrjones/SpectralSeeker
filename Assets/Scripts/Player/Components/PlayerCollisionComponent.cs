@@ -9,10 +9,19 @@ public class PlayerCollisionComponent : MonoBehaviour
     private BoxCollider2D _playerCollider;
     private Rigidbody2D _rb;
     
+    public bool isGrounded { get; private set; }
+    public bool isWalled { get; private set; }
+    
     private void Awake()
     {
         _playerCollider = GetComponent<BoxCollider2D>();
         _rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        isGrounded = CheckGrounded();
+        //isWalled = CheckWalled();
     }
 
     public bool CheckGrounded()

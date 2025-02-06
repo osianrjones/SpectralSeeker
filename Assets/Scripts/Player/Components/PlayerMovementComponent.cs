@@ -33,7 +33,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _playerCollider.CheckGrounded();
+        //_playerCollider.CheckGrounded();
     }
 
     private void Update()
@@ -64,11 +64,12 @@ public class PlayerMovementComponent : MonoBehaviour
         
         _rb.linearVelocityX = velocity.x;
          HorizontalInput = horizontalInput;
+         Debug.Log("HORIZONTAL: " + HorizontalInput);
     }
 
     public void Jump()
     {
-        if (_isGrounded)
+        if (_playerCollider.isGrounded)
         {
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
             JumpInput = true;

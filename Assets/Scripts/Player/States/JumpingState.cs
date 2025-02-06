@@ -12,7 +12,7 @@ public class JumpingState : PlayerState
     public override void Update()
     {
         // Transition to Idle or Running when landing
-        if (playerMovement._isGrounded)
+        if (playerCollision.isGrounded)
         {
             if (Mathf.Abs(playerMovement.HorizontalInput) > 0.1f)
             {
