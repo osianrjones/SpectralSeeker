@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(PlayerCollisionComponent))]
 public class PlayerMovementComponent : MonoBehaviour
 {
     public event Action<Vector2> OnMove;
@@ -12,25 +12,28 @@ public class PlayerMovementComponent : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private LayerMask platformLayer;
+    [SerializeField] private float wallSlideSpeed;
     
     private Rigidbody2D _rb;
-    private BoxCollider2D _playerCollider;
+    private PlayerCollisionComponent _playerCollider;
     private PlayerState _currentState;
 
     public float HorizontalInput { get; private set; }
     public bool JumpInput { get; private set; }
     public bool _isGrounded { get; private set; }
+    
+    public bool _isWallSliding { get; private set; }
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>(); 
-        _playerCollider = GetComponent<BoxCollider2D>();
-        ChangeState(new IdleState(this)); 
+        _playerCollider = GetComponent<PlayerCollisionComponent>();
+        ChangeState(new IdleState(this, _playerCollider)); 
     }
 
     private void FixedUpdate()
     {
-        _isGrounded = CheckGrounded();
+        _playerCollider.CheckGrounded();
     }
 
     private void Update()
@@ -52,18 +55,6 @@ public class PlayerMovementComponent : MonoBehaviour
     {
         JumpInput = false;
         OnGrounded?.Invoke();
-    }
-
-    private bool CheckGrounded()
-    {
-         Vector2 raycastOrigin = _playerCollider.bounds.center;
-         raycastOrigin.y -= _playerCollider.bounds.extents.y;
-
-         RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.down, 0.1f, platformLayer);
-         
-         bool grounded = hit.collider != null;
-         
-         return (grounded);
     }
 
     public void Move(float horizontalInput)

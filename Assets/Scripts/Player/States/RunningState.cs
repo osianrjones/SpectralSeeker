@@ -2,31 +2,31 @@ using UnityEngine;
 
 public class RunningState : PlayerState
 {
-    public RunningState(PlayerMovementComponent player) : base(player) { }
+    public RunningState(PlayerMovementComponent playerMovement, PlayerCollisionComponent playerCollision) : base(playerMovement, playerCollision) { }
 
     public override void Enter()
     {
-        Player.MoveEvent();
+        playerMovement.MoveEvent();
     }
 
     public override void Update()
     {
 
         // Transition to Idle if there's no horizontal input
-        if (Mathf.Abs(Player.HorizontalInput) == 0)
+        if (Mathf.Abs(playerMovement.HorizontalInput) == 0)
         {
-            Player.ChangeState(new IdleState(Player));
+            playerMovement.ChangeState(new IdleState(playerMovement, playerCollision));
         }
 
         // Transition to Jumping if the player jumps
-        if (Player.JumpInput && Player._isGrounded)
+        if (playerMovement.JumpInput && playerMovement._isGrounded)
         {
-            Player.ChangeState(new JumpingState(Player));
+            playerMovement.ChangeState(new JumpingState(playerMovement, playerCollision));
         }
     }
 
     public override void Exit()
     {
-        Player.MoveEvent(); // Stop running animation
+        playerMovement.MoveEvent(); // Stop running animation
     }
 }

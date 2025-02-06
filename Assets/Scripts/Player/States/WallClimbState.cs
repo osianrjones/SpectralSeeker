@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WallClimbState : PlayerState
 {
-    public WallClimbState(PlayerMovementComponent player) : base(player) { }
+    public WallClimbState(PlayerMovementComponent playerMovement, PlayerCollisionComponent playerCollision) : base(playerMovement, playerCollision) { }
 
     public override void Update()
     {

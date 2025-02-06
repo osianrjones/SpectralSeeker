@@ -1,10 +1,12 @@
 public abstract class PlayerState
 {
-    protected PlayerMovementComponent Player;
+    protected PlayerMovementComponent playerMovement;
+    protected PlayerCollisionComponent playerCollision;
 
-    public PlayerState(PlayerMovementComponent player)
+    public PlayerState(PlayerMovementComponent playerMovement, PlayerCollisionComponent playerCollision)
     {
-        Player = player;
+        playerMovement = playerMovement;
+        playerCollision = playerCollision;
     }
 
     public virtual void Enter() { }
