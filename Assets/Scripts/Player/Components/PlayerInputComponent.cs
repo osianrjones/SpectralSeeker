@@ -8,6 +8,7 @@ public class PlayerInputComponent : MonoBehaviour
     private PlayerCollisionComponent _playerCollision;
     private Keyboard keyboard;
     private bool hasJumped = false;
+    private bool hasJumpedOffWall = false;
 
     void Awake()
     {
@@ -54,11 +55,21 @@ public class PlayerInputComponent : MonoBehaviour
             {
                 hasJumped = true;
                 _playerMovement.Jump();
+            } 
+            else if (keyboard.spaceKey.isPressed && _playerCollision.isWalled && !hasJumpedOffWall)
+            {
+                hasJumpedOffWall = true;
+                _playerMovement.JumpOffWall();
             }
             else if (!keyboard.spaceKey.isPressed)
             {
                 hasJumped = false;
             }
+        }
+
+        if (_playerCollision.isGrounded)
+        {
+            hasJumpedOffWall = false;
         }
     }
 }

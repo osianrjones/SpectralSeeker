@@ -14,6 +14,7 @@ public class JumpingState : PlayerState
         // Transition to Idle or Running when landing
         if (playerCollision.isGrounded)
         {
+            playerMovement.JumpInput = false;
             if (Mathf.Abs(playerMovement.HorizontalInput) > 0.1f)
             {
                 playerMovement.ChangeState(new RunningState(playerMovement, playerCollision));
@@ -22,6 +23,11 @@ public class JumpingState : PlayerState
             {
                 playerMovement.ChangeState(new IdleState(playerMovement, playerCollision));
             }
+        }
+
+        if (playerCollision.isWalled && !playerCollision.isGrounded)
+        {
+            playerMovement.ChangeState(new WallSlideState(playerMovement, playerCollision));
         }
     }
 

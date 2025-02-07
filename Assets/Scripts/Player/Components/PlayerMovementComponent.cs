@@ -8,7 +8,9 @@ public class PlayerMovementComponent : MonoBehaviour
     public event Action<Vector2> OnMove;
     public event Action<Vector2> OnJump;
     public event Action<Vector2> OnGrounded;
-    
+    public event Action OnWall;
+    public event Action OffWall;
+
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     [SerializeField] private LayerMask platformLayer;
@@ -19,7 +21,7 @@ public class PlayerMovementComponent : MonoBehaviour
     private PlayerState _currentState;
 
     public float HorizontalInput { get; private set; }
-    public bool JumpInput { get; private set; }
+    public bool JumpInput { get; set; }
     public bool _isGrounded { get; private set; }
     
     public bool _isWallSliding { get; private set; }
@@ -32,14 +34,38 @@ public class PlayerMovementComponent : MonoBehaviour
         JumpInput = false;
     }
 
-    private void FixedUpdate()
-    {
-        //_playerCollider.CheckGrounded();
-    }
-
     private void Update()
     {
         _currentState?.Update();
+        WallSlide();
+    }
+
+    public void OnWallEvent()
+    {
+        OnWall?.Invoke();
+    }
+
+    public void OffWallEvent()
+    {
+        OffWall?.Invoke();
+    }
+
+    public void WallSlide()
+    {
+        if (_playerCollider.isWalled && !_playerCollider.isGrounded)
+        {
+            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, Mathf.Clamp(_rb.linearVelocity.y, -wallSlideSpeed, float.MaxValue));
+            JumpInput = false;
+        }
+    }
+
+    public void JumpOffWall()
+    {
+        float facingDirection = Mathf.Sign(transform.localScale.x);
+
+        var wallJumpDirection = -facingDirection;
+        _rb.linearVelocity = new Vector2(wallJumpDirection * jumpForce, jumpForce);
+        OffWallEvent();
     }
 
     public void MoveEvent()
@@ -54,7 +80,6 @@ public class PlayerMovementComponent : MonoBehaviour
 
     public void JumpDownEvent()
     {
-        JumpInput = false;
         OnGrounded?.Invoke(_rb.linearVelocity);
     }
 
@@ -73,7 +98,7 @@ public class PlayerMovementComponent : MonoBehaviour
         {
             _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, jumpForce);
             JumpInput = true;
-        } 
+        }
     }
 
     public void ChangeState(PlayerState state)

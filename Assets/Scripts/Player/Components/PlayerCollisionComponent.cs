@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D), typeof(Rigidbody2D))]
@@ -37,9 +38,14 @@ public class PlayerCollisionComponent : MonoBehaviour
 
     public bool CheckWalled()
     {
-        Vector2 raycastOrigin = _playerCollider.bounds.center;
-        RaycastHit2D wallHit = Physics2D.Raycast(raycastOrigin, new Vector2(_rb.linearVelocityX, 0), 0.5f, platformLayer);
-        
+        float direction = gameObject.GetComponent<SpriteRenderer>().flipX ? -1f : 1f;
+
+        Vector2 raycastOrigin = new Vector2(_playerCollider.bounds.center.x + direction * _playerCollider.bounds.extents.x, _playerCollider.bounds.center.y);
+       
+        RaycastHit2D wallHit = Physics2D.Raycast(raycastOrigin, Vector2.right * direction, 0.1f, platformLayer);
+
+        Debug.DrawRay(raycastOrigin, Vector2.right * direction * 0.1f, Color.red);
+
         return wallHit.collider != null;
     }
 }

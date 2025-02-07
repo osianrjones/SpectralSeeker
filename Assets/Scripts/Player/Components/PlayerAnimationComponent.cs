@@ -6,36 +6,50 @@ using UnityEngine.Windows;
 public class PlayerAnimationComponent : MonoBehaviour
 {
     private Animator _animator;
+    private Rigidbody2D rb;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        _animator.SetFloat("yVelocity", rb.linearVelocity.y);
+        _animator.SetFloat("xVelocity", Math.Abs(rb.linearVelocity.x));
+
     }
 
     public void Subscribe(PlayerMovementComponent _movementComponent)
     {
-        _movementComponent.OnMove += HandleMove;
         _movementComponent.OnJump += HandleJumpUp;
         _movementComponent.OnGrounded += HandleJumpDown;
+        _movementComponent.OnWall += OnWall;
+        _movementComponent.OffWall += OffWall;
     }
-    
-    //move
-    public void HandleMove(Vector2 input)
-    {
-        _animator.SetFloat("xVelocity", Math.Abs(input.x));
-    }
+
     
     //jump
     public void HandleJumpUp(Vector2 input)
     {
-        Debug.Log("HANDLE JUMP UP");
         _animator.SetBool("isJumping", true);
-        _animator.SetFloat("yVelocity", input.y);
     }
 
     public void HandleJumpDown(Vector2 input)
     {
         _animator.SetBool("isJumping", false);
-        _animator.SetFloat("yVelocity", input.y);
+    }
+
+    public void OnWall()
+    {
+        Debug.Log("ON WALL");
+        _animator.SetBool("onWall", true);
+    }
+
+    public void OffWall()
+    {
+        Debug.Log("OFF WALL");
+        _animator.SetBool("onWall", false);
     }
 }
