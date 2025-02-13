@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,14 +7,17 @@ public class PlayerInputComponent : MonoBehaviour
 {
     private PlayerMovementComponent _playerMovement;
     private PlayerCollisionComponent _playerCollision;
+    private InventoryManager _inventoryManager;
     private Keyboard keyboard;
     private bool hasJumped = false;
     private bool hasJumpedOffWall = false;
+    private bool disableMovement = false;
 
     void Awake()
     {
         _playerMovement = GetComponent<PlayerMovementComponent>();
         _playerCollision = GetComponent<PlayerCollisionComponent>();
+        _inventoryManager = GetComponent<InventoryManager>();
     }
 
     // Update is called once per frame
@@ -26,13 +30,42 @@ public class PlayerInputComponent : MonoBehaviour
         {
             return;
         }
+       
         
-        float horizontal = keyboard.dKey.ReadValue()
+        if (!disableMovement)
+        {
+            float horizontal = keyboard.dKey.ReadValue()
                            - keyboard.aKey.ReadValue();
-        
-        _playerMovement.Move(horizontal);
 
-        flipSprite(horizontal);
+            _playerMovement.Move(horizontal);
+
+            flipSprite(horizontal);
+        }
+
+        for (int i = 1; i <= 5; i++)
+        {
+            switch (i)
+            {
+                case 1:
+                    if (keyboard.digit1Key.wasPressedThisFrame) 
+                    { 
+                        inventoryPressed(1);
+                        disableMovement = !disableMovement;
+                    }               
+                    break;
+                case 2:
+                    if (keyboard.digit2Key.wasPressedThisFrame) { inventoryPressed(2); }
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+    }
+
+    private void inventoryPressed(int v)
+    {
+        _inventoryManager.inventoryPressed(v);
     }
 
     private void flipSprite(float horizontal)

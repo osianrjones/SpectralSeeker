@@ -64,7 +64,7 @@ public class PlayerMovementComponent : MonoBehaviour
         float facingDirection = Mathf.Sign(transform.localScale.x);
 
         var wallJumpDirection = -facingDirection;
-        _rb.linearVelocity = new Vector2(wallJumpDirection * jumpForce, jumpForce);
+        _rb.linearVelocity = new Vector2(wallJumpDirection * jumpForce, jumpForce + 1.1f);
         OffWallEvent();
     }
 
