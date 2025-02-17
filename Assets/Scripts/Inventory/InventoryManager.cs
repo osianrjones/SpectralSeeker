@@ -30,6 +30,8 @@ public class InventoryManager : MonoBehaviour
         {
             case "Flashlight":
                 return GetComponentInChildren<FlashlightItemComponent>();
+            case "Sword":
+                return GetComponentInChildren<SwordItemComponent>();
             default:
                 return null;              
         }
@@ -47,7 +49,10 @@ public class InventoryManager : MonoBehaviour
         } else if (component is JournalManagerComponent journal)
         {
             journal.ToggleUse();
-        }    
+        } else if (component is SwordItemComponent sword)
+        {
+            sword.ToggleUse();
+        }
     }
 
     public void AddItemToInventory(Sprite sprite, String itemName)

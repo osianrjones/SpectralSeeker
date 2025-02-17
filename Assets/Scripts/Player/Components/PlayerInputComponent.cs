@@ -49,12 +49,14 @@ public class PlayerInputComponent : MonoBehaviour
                 case 1:
                     if (keyboard.digit1Key.wasPressedThisFrame) 
                     { 
-                        inventoryPressed(1);
+                        inventoryPressed(i);
                         disableMovement = !disableMovement;
                     }               
                     break;
                 case 2:
-                    if (keyboard.digit2Key.wasPressedThisFrame) { inventoryPressed(2); }
+                    if (keyboard.digit2Key.wasPressedThisFrame) { inventoryPressed(i); }
+                    break;
+                case 3: if (keyboard.digit3Key.wasPressedThisFrame) { inventoryPressed(i);}
                     break;
                 default:
                     break;

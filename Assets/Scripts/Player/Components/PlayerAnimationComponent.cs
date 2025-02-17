@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -6,12 +7,16 @@ using UnityEngine.Windows;
 public class PlayerAnimationComponent : MonoBehaviour
 {
     private Animator _animator;
+    private AnimatorController _defaultController;
+    [SerializeField] private AnimatorOverrideController animatorOverride;
     private Rigidbody2D rb;
+    private bool swordEquipped = false;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        _defaultController = _animator.runtimeAnimatorController as AnimatorController;
     }
 
     private void Update()
@@ -29,7 +34,25 @@ public class PlayerAnimationComponent : MonoBehaviour
         _movementComponent.OffWall += OffWall;
     }
 
-    
+    public void ToggleSword()
+    {
+        if (!swordEquipped)
+        {
+            if (animatorOverride != null)
+            {
+                _animator.runtimeAnimatorController = animatorOverride;
+            }
+
+            swordEquipped = true;
+        }
+        else
+        {
+            _animator.runtimeAnimatorController = _defaultController;
+            swordEquipped = false;
+        }
+
+    }
+
     //jump
     public void HandleJumpUp(Vector2 input)
     {
