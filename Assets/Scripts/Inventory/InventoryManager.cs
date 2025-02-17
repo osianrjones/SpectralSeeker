@@ -6,6 +6,7 @@ public class InventoryManager : MonoBehaviour
 {
     private Image[] inventoryImageSlots;
     private MonoBehaviour[] inventoryItems;
+    private int lastPressedItem = 0;
 
     private void Start()
     {
@@ -53,6 +54,8 @@ public class InventoryManager : MonoBehaviour
         {
             sword.ToggleUse();
         }
+        
+        lastPressedItem = index;
     }
 
     public void AddItemToInventory(Sprite sprite, String itemName)
@@ -73,9 +76,10 @@ public class InventoryManager : MonoBehaviour
 
     public void RemoveItemFromSlot(int index)
     {
-        if (index < inventoryImageSlots.Length)
+        if (index > 1 && index < inventoryImageSlots.Length)
         {
             inventoryImageSlots[index].sprite = null;
+            inventoryItems[index] = null;
         }
     }
 

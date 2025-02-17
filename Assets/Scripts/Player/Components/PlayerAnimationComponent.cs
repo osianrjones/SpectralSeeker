@@ -52,6 +52,16 @@ public class PlayerAnimationComponent : MonoBehaviour
         }
 
     }
+    
+    public void Attack() 
+    {
+        _animator.SetBool("attack", true);
+     }
+
+    public void ResetAttack()
+    {
+        _animator.SetBool("attack", false);
+    }
 
     //jump
     public void HandleJumpUp(Vector2 input)

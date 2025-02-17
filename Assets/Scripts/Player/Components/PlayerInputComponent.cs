@@ -8,6 +8,8 @@ public class PlayerInputComponent : MonoBehaviour
     private PlayerMovementComponent _playerMovement;
     private PlayerCollisionComponent _playerCollision;
     private InventoryManager _inventoryManager;
+    private PlayerAnimationComponent _playerAnimation;
+    private SwordItemComponent _playerSwordItemComponent;
     private Keyboard keyboard;
     private bool hasJumped = false;
     private bool hasJumpedOffWall = false;
@@ -18,6 +20,8 @@ public class PlayerInputComponent : MonoBehaviour
         _playerMovement = GetComponent<PlayerMovementComponent>();
         _playerCollision = GetComponent<PlayerCollisionComponent>();
         _inventoryManager = GetComponent<InventoryManager>();
+        _playerAnimation = GetComponent<PlayerAnimationComponent>();
+        _playerSwordItemComponent = GetComponentInChildren<SwordItemComponent>();
     }
 
     // Update is called once per frame
@@ -62,7 +66,14 @@ public class PlayerInputComponent : MonoBehaviour
                     break;
             }
         }
-        
+
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            if (_playerSwordItemComponent.Holding())
+            {
+                _playerAnimation.Attack();
+            }
+        }
     }
 
     private void inventoryPressed(int v)
