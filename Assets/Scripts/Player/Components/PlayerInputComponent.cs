@@ -74,6 +74,11 @@ public class PlayerInputComponent : MonoBehaviour
                 _playerAnimation.Attack();
             }
         }
+
+        if (Keyboard.current.gKey.wasPressedThisFrame)
+        {
+            _inventoryManager.throwItem();
+        }
     }
 
     private void inventoryPressed(int v)

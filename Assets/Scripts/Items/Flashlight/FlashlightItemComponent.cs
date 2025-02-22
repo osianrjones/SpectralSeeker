@@ -39,7 +39,5 @@ public class FlashlightItemComponent : MonoBehaviour
     {
         isActivated = !isActivated;
         torchLight.enabled = !torchLight.enabled;
-        //Light2D playerLightComponent = transform.parent.Find("Player Light")?.GetComponent<Light2D>();
-        //playerLightComponent.enabled = !playerLightComponent.enabled;
     }
 }

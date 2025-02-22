@@ -25,7 +25,7 @@ public class InventoryManager : MonoBehaviour
         inventoryItems[0] = GetComponent<JournalManagerComponent>();
     }
 
-    private MonoBehaviour createItemObject(string name)
+    private MonoBehaviour createBehaviourFromName(string name)
     {
         switch (name)
         {
@@ -35,6 +35,19 @@ public class InventoryManager : MonoBehaviour
                 return GetComponentInChildren<SwordItemComponent>();
             default:
                 return null;              
+        }
+    }
+
+    private string createNameFromBehaviour(MonoBehaviour behaviour)
+    {
+        switch (behaviour)
+        {
+            case FlashlightItemComponent component:
+                return "Flashlight";
+            case SwordItemComponent component:
+                return "Sword";
+            default:
+                return null;
         }
     }
 
@@ -66,7 +79,7 @@ public class InventoryManager : MonoBehaviour
             if (inventoryImageSlots[i].sprite == null)
             {
                 inventoryImageSlots[i].sprite = sprite;
-                MonoBehaviour component = createItemObject(itemName);
+                MonoBehaviour component = createBehaviourFromName(itemName);
                 inventoryItems[i] = component;
                 SetImageOpacity(inventoryImageSlots[i]);
                 break;
@@ -74,14 +87,55 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void RemoveItemFromSlot(int index)
+    public bool RemoveItemFromSlot(int index)
     {
-        if (index > 1 && index < inventoryImageSlots.Length)
+        if (index > 0 && index < inventoryImageSlots.Length)
         {
+            SetImageClear(inventoryImageSlots[index]);
             inventoryImageSlots[index].sprite = null;
             inventoryItems[index] = null;
+            return true;
         }
+
+        return false;
     }
+
+    public void throwItem()
+    {
+        if (lastPressedItem > 1)
+        {
+            MonoBehaviour component = inventoryItems[lastPressedItem];
+            inventoryPressed(++lastPressedItem);
+
+            string item = createNameFromBehaviour(component);
+            if (item == null) { return; }
+
+            if (RemoveItemFromSlot(lastPressedItem))
+            {
+                GameObject throwableObject = ObjectTracker.Instance.FindInactiveObjectByTag(item);
+
+                float facingDirection = GetComponent<SpriteRenderer>().flipX ? -1 : 1;
+                Vector2 spawnOffset = new Vector2(facingDirection * 1f, 0);
+                Vector2 spawnPosition = (Vector2)transform.position + spawnOffset;
+
+                GameObject throwableItem = Instantiate(throwableObject, spawnPosition, Quaternion.identity);
+
+                throwableItem.SetActive(true);
+
+                Rigidbody2D rigidbody2D = throwableItem.GetComponent<Rigidbody2D>();
+                if (rigidbody2D != null)
+                {
+                    float horizontalForce = facingDirection * 2f;
+
+                    float verticalForce = 2f;
+
+                    Vector2 throwForce = new Vector2(horizontalForce, verticalForce);
+
+                    rigidbody2D.AddForce(throwForce, ForceMode2D.Impulse);
+                }
+            }
+        }
+    } 
 
     private void SetImageOpacity(Image slot)
     {
@@ -89,6 +143,16 @@ public class InventoryManager : MonoBehaviour
         {
             Color color = slot.color;
             color.a = 255f;
+            slot.color = color;
+        }
+    }
+
+    private void SetImageClear(Image slot)
+    {
+        if (slot != null)
+        {
+            Color color = slot.color;
+            color.a = 0f;
             slot.color = color;
         }
     }

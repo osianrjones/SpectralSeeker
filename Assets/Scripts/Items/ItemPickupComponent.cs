@@ -5,8 +5,21 @@ public class ItemPickupComponent : MonoBehaviour
 {
     [SerializeField] private Sprite itemIcon;
     [SerializeField] private string itemName;
+    [SerializeField] private float pickupCooldown;
+    private bool canBePickedUp = false;
 
     public event Action<IItem> ItemPickup;
+
+    private void Awake()
+    {
+        ObjectTracker.Instance.RegisterObject(gameObject, itemName);
+        Invoke(nameof(EnablePickup), pickupCooldown);
+    }
+
+    private void EnablePickup()
+    {
+        canBePickedUp = true;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,12 +27,11 @@ public class ItemPickupComponent : MonoBehaviour
         {
             InventoryManager inventory = collision.GetComponent<InventoryManager>();
 
-            if (inventory != null)
-            {
-               
+            if (inventory != null && canBePickedUp)
+            {               
                 inventory.AddItemToInventory(itemIcon, itemName);
 
-                Destroy(gameObject);
+                gameObject.gameObject.SetActive(false);
             }
         }
     }
