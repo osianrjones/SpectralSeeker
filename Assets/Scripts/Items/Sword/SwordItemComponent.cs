@@ -33,7 +33,7 @@ public class SwordItemComponent : MonoBehaviour
         
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * direction, attackRange, enemyLayer);
 
-        if (hit != null)
+        if (hit )
         {
             //implement hit logic
         }
