@@ -6,6 +6,7 @@ public class BatCollisionComponent : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private float speed;
 
+    private bool nextToPlayer = false;
     void Update()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, playerLayer);
@@ -14,10 +15,18 @@ public class BatCollisionComponent : MonoBehaviour
         {
             if (collider.CompareTag("Player"))
             {
-                transform.position = Vector2.MoveTowards(transform.position, collider.transform.position, speed * Time.deltaTime);
+                float direction = transform.position.x > collider.transform.position.x ? 1 : -1;
+                Vector3 playerPos = new Vector3(collider.transform.position.x + direction, collider.transform.position.y, collider.transform.position.z);
+                transform.position = Vector2.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
                 flipSprite(collider.transform);
+                checkNextToPlayer();
             }
         }
+    }
+
+    private void checkNextToPlayer()
+    {
+
     }
 
     private void flipSprite(Transform playerTransform)

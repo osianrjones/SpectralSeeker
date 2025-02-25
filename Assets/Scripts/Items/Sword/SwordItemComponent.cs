@@ -9,11 +9,12 @@ public class SwordItemComponent : MonoBehaviour
     [SerializeField] private float attackRange;
     [SerializeField] private LayerMask enemyLayer;
     private SpriteRenderer playerSprite;
-    
-    private void Awake()
+
+    private void Start()
     {
         animator = GetComponentInParent<PlayerAnimationComponent>();
-        playerSprite = gameObject.GetComponent<SpriteRenderer>();
+        playerSprite = GetComponentInParent<SpriteRenderer>();
+        animator.Attacked += Attack;
     }
 
     public void ToggleUse()
@@ -30,12 +31,13 @@ public class SwordItemComponent : MonoBehaviour
     public void Attack()
     {
         float direction = playerSprite.flipX ? -1f : 1f;
-        
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * direction, attackRange, enemyLayer);
 
-        if (hit )
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * direction, attackRange, enemyLayer);
+        
+        if (hit.collider != null)
         {
-            //implement hit logic
+            Debug.Log("HIT enemy");
+            hit.collider.gameObject.SendMessage("Damage", swordDamage);
         }
     }
 }

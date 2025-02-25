@@ -201,6 +201,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -1009,7 +1022,43 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      snake_spritesheet(64x64)_0: 2952909231225456975
+      snake_spritesheet(64x64)_1: -2578309953826948
+      snake_spritesheet(64x64)_10: 2860202990908016040
+      snake_spritesheet(64x64)_11: 1452075678512614937
+      snake_spritesheet(64x64)_12: 4866096529460684153
+      snake_spritesheet(64x64)_13: -5240536508859427942
+      snake_spritesheet(64x64)_14: 5662543139629626384
+      snake_spritesheet(64x64)_15: -182451003256712359
+      snake_spritesheet(64x64)_16: -2751221982809917571
+      snake_spritesheet(64x64)_17: -5312647226731060987
+      snake_spritesheet(64x64)_18: 4018895637437928454
+      snake_spritesheet(64x64)_19: 1541108306347287110
+      snake_spritesheet(64x64)_2: -5998964443633153498
+      snake_spritesheet(64x64)_20: 2533599854977790008
+      snake_spritesheet(64x64)_21: 1130925218613468478
+      snake_spritesheet(64x64)_22: 8267984874895926869
+      snake_spritesheet(64x64)_23: 8226856154137830117
+      snake_spritesheet(64x64)_24: -7751821080788780187
+      snake_spritesheet(64x64)_25: 6112298667773726491
+      snake_spritesheet(64x64)_26: 7136712016147247074
+      snake_spritesheet(64x64)_27: 5861722472466992782
+      snake_spritesheet(64x64)_28: 6029741731875286303
+      snake_spritesheet(64x64)_29: -8734705291441212927
+      snake_spritesheet(64x64)_3: -386610249683391910
+      snake_spritesheet(64x64)_30: -7660189970385694093
+      snake_spritesheet(64x64)_31: 2082973948311778694
+      snake_spritesheet(64x64)_32: 2162905632939546806
+      snake_spritesheet(64x64)_33: -3540573648515639489
+      snake_spritesheet(64x64)_34: 7021675365412693054
+      snake_spritesheet(64x64)_35: -6474928474586420487
+      snake_spritesheet(64x64)_4: -5037411158063278026
+      snake_spritesheet(64x64)_5: -7016160385343222099
+      snake_spritesheet(64x64)_6: -8839166271254782006
+      snake_spritesheet(64x64)_7: -5983138951813522194
+      snake_spritesheet(64x64)_8: 3931928003553977349
+      snake_spritesheet(64x64)_9: 7741835679291038455
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

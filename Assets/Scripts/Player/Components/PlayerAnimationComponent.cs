@@ -11,6 +11,8 @@ public class PlayerAnimationComponent : MonoBehaviour
     [SerializeField] private AnimatorOverrideController animatorOverride;
     private Rigidbody2D rb;
     private bool swordEquipped = false;
+    
+    public event Action Attacked;
 
     private void Awake()
     {
@@ -56,6 +58,7 @@ public class PlayerAnimationComponent : MonoBehaviour
     public void Attack() 
     {
         _animator.SetBool("attack", true);
+        Attacked?.Invoke();
      }
 
     public void ResetAttack()

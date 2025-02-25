@@ -10,7 +10,7 @@ public class ItemPickupComponent : MonoBehaviour
 
     public event Action<IItem> ItemPickup;
 
-    private void Awake()
+    private void Start()
     {
         ObjectTracker.Instance.RegisterObject(gameObject, itemName);
         Invoke(nameof(EnablePickup), pickupCooldown);

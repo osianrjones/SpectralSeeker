@@ -13,10 +13,6 @@ public class ObjectTracker : MonoBehaviour
         {
             Instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     public void RegisterObject(GameObject obj, string tag)
