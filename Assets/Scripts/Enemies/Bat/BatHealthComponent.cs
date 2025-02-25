@@ -9,18 +9,30 @@ public class BatHealthComponent : MonoBehaviour
     [SerializeField] private GameObject damageTextPrefab;
 
     private float initialHealth;
+    private BatAnimationComponent _animatior;
 
     private void Awake()
     {
         initialHealth = health;
+        _animatior = GetComponent<BatAnimationComponent>();
     }
 
     public void TakeDamage(float damage)
     {
         health -= damage;
 
+        if (health <= 0)
+        {
+            Die();
+        }
+
         Color damageColor = DamageColor();
         ShowDamage(damage, damageColor);
+    }
+
+    private void Die()
+    {
+        _animatior.Die();
     }
 
     private Color DamageColor()
@@ -48,4 +60,5 @@ public class BatHealthComponent : MonoBehaviour
                 damageComponent.SetDamage(damage, damageColor);
             }
     }
+    
 }

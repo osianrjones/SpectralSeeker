@@ -10,6 +10,11 @@ public class BatAnimationComponent : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    public void Die()
+    {
+        animator.SetTrigger("Die");
+    }
+
     private void Attack()
     {
         animator.SetTrigger("Attack");

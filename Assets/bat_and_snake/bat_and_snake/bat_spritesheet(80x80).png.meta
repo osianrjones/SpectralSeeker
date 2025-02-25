@@ -153,6 +153,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -513,9 +526,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 352
-        y: 32
-        width: 20
-        height: 33
+        y: 8
+        width: 32
+        height: 57
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -531,35 +544,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bat_spritesheet(80x80)_17
-      rect:
-        serializedVersion: 2
-        x: 359
-        y: 9
-        width: 25
-        height: 27
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 689a584a49bc0bbf0800000000000000
-      internalID: -310524535012742778
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: bat_spritesheet(80x80)_18
       rect:
         serializedVersion: 2
         x: 432
-        y: 32
-        width: 20
-        height: 33
+        y: 3
+        width: 33
+        height: 62
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -570,28 +561,6 @@ TextureImporter:
       bones: []
       spriteID: 033e5e2bffb3d8bd0800000000000000
       internalID: -2626377038283021520
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bat_spritesheet(80x80)_19
-      rect:
-        serializedVersion: 2
-        x: 439
-        y: 2
-        width: 25
-        height: 28
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9dac0ab8a668b74f0800000000000000
-      internalID: -829921914152498471
       vertices: []
       indices: 
       edges: []
@@ -623,6 +592,8 @@ TextureImporter:
       bat_spritesheet(80x80)_18: -2626377038283021520
       bat_spritesheet(80x80)_19: -829921914152498471
       bat_spritesheet(80x80)_2: -5036935118648157639
+      bat_spritesheet(80x80)_20: -1499298996
+      bat_spritesheet(80x80)_21: -167102331
       bat_spritesheet(80x80)_3: -7470425367254071301
       bat_spritesheet(80x80)_4: 5661338834557344568
       bat_spritesheet(80x80)_5: -6419436319966111365

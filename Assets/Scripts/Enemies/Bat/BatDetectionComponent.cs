@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BatCollisionComponent : MonoBehaviour
@@ -7,6 +8,13 @@ public class BatCollisionComponent : MonoBehaviour
     [SerializeField] private float speed;
 
     private bool nextToPlayer = false;
+    private PolygonCollider2D _playerCollider;
+
+    private void Awake()
+    {
+        _playerCollider = GetComponent<PolygonCollider2D>();
+    }
+
     void Update()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, playerLayer);
@@ -19,14 +27,22 @@ public class BatCollisionComponent : MonoBehaviour
                 Vector3 playerPos = new Vector3(collider.transform.position.x + direction, collider.transform.position.y, collider.transform.position.z);
                 transform.position = Vector2.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
                 flipSprite(collider.transform);
-                checkNextToPlayer();
+                checkNextToPlayer(direction);
             }
         }
     }
 
-    private void checkNextToPlayer()
+    private void checkNextToPlayer(float direction)
     {
-
+        direction = -direction;
+        Vector2 raycastOrigin = new Vector2(_playerCollider.bounds.center.x + direction * _playerCollider.bounds.extents.x, _playerCollider.bounds.center.y);
+        RaycastHit2D wallHit = Physics2D.Raycast(raycastOrigin, Vector2.right * direction, 0.3f, playerLayer);
+        Debug.DrawRay(raycastOrigin, Vector2.right * direction * 0.3f, Color.red);
+        if (wallHit.collider != null)
+        {
+            gameObject.SendMessage("Attack");
+            wallHit.collider.gameObject.SendMessage("Hit", 20);
+        }
     }
 
     private void flipSprite(Transform playerTransform)
