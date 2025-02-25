@@ -58,12 +58,13 @@ public class PlayerAnimationComponent : MonoBehaviour
     public void Attack() 
     {
         _animator.SetBool("attack", true);
-        Attacked?.Invoke();
+        
      }
 
     public void ResetAttack()
     {
         _animator.SetBool("attack", false);
+        Attacked?.Invoke();
     }
 
     //jump

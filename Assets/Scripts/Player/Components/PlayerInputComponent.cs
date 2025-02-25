@@ -69,7 +69,7 @@ public class PlayerInputComponent : MonoBehaviour
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            if (_playerSwordItemComponent.Holding())
+            if (_playerSwordItemComponent.Holding() && _playerCollision.isGrounded)
             {
                 _playerAnimation.Attack();
             }

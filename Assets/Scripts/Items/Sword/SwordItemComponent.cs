@@ -36,8 +36,8 @@ public class SwordItemComponent : MonoBehaviour
         
         if (hit.collider != null)
         {
-            Debug.Log("HIT enemy");
-            hit.collider.gameObject.SendMessage("Damage", swordDamage);
+            hit.collider.gameObject.SendMessage("TakeDamage", swordDamage);
+            hit.collider.gameObject.SendMessage("Hurt");
         }
     }
 }

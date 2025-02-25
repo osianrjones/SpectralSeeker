@@ -19,4 +19,16 @@ public class BatAnimationComponent : MonoBehaviour
     {
         animator.ResetTrigger("Attack");
     }
+
+    public void Hurt()
+    {
+        animator.SetTrigger("Hurt");
+    }
+
+    public void ResetHurt()
+    {
+        animator.ResetTrigger("Hurt");
+    }
+    
+    
 }

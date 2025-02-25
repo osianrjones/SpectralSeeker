@@ -1,14 +1,18 @@
+using System;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class FloatingDamageComponent : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1f; // Speed at which the text moves upward
     [SerializeField] private float fadeDuration = 1f; // Duration before the text fades out
-    [SerializeField] private TextMeshProUGUI damageText; // Reference to the TextMeshPro component
+    [SerializeField] private TextMeshPro damageText; // Reference to the TextMeshPro component
 
     private float fadeTimer;
-
+    private bool destroyable = false;
+    private Color damageColor;
+    
     void Start()
     {
         fadeTimer = fadeDuration;
@@ -21,19 +25,21 @@ public class FloatingDamageComponent : MonoBehaviour
 
         // Fade out the text
         fadeTimer -= Time.deltaTime;
-        if (fadeTimer <= 0)
+         
+        float alpha = fadeTimer / fadeDuration; // Calculate alpha based on remaining time
+        damageText.color = new Color(damageColor.r, damageColor.g, damageColor.b, alpha);
+        if (alpha <= 0f && destroyable)
         {
-            Destroy(gameObject); // Destroy the text when the fade duration is over
-        }
-        else
-        {
-            float alpha = fadeTimer / fadeDuration; // Calculate alpha based on remaining time
-            damageText.color = new Color(damageText.color.r, damageText.color.g, damageText.color.b, alpha);
+            Destroy(gameObject);
         }
     }
 
-    public void SetDamage(int damage)
+    public void SetDamage(float damage, Color color)
     {
-        damageText.text = damage.ToString(); // Set the damage value
+        damageText.text = String.Format("{0}", damage);
+        destroyable = true;
+        damageColor = color;
+        Debug.Log("damageColor: " + damageColor.ToString());
     }
+    
 }
