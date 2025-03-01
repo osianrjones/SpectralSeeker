@@ -89,4 +89,14 @@ public class PlayerAnimationComponent : MonoBehaviour
         Debug.Log("OFF WALL");
         _animator.SetBool("onWall", false);
     }
+
+    internal void Die()
+    {
+        _animator.SetTrigger("Die");
+    }
+
+    public void CallWrapUp()
+    {
+        gameObject.GetComponent<Player>().WrapUpPlayer();
+    }
 }

@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
+    public bool IsDead { get; private set; } = false;
 
     private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
         PlayerMovementComponent _movementComponent = GetComponent<PlayerMovementComponent>();
         PlayerAnimationComponent _animationComponent = GetComponent<PlayerAnimationComponent>();
 
@@ -18,10 +24,11 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Die()
+    public void WrapUpPlayer()
     {
-
-        Destroy(gameObject);
+        IsDead = true;
+        gameObject.GetComponentInChildren<FlashlightItemComponent>().TurnOff();   
+        StartCoroutine(FadeOut(1f));
     }
 
     IEnumerator FadeOut(float duration)
@@ -40,5 +47,6 @@ public class Player : MonoBehaviour
 
 
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0f);
+        Time.timeScale = 0f;
     }
 }

@@ -40,4 +40,12 @@ public class FlashlightItemComponent : MonoBehaviour
         isActivated = !isActivated;
         torchLight.enabled = !torchLight.enabled;
     }
+
+    public void TurnOff()
+    {
+        if (isActivated)
+        {
+            ToggleUse();
+        }
+    }
 }

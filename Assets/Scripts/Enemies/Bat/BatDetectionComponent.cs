@@ -6,9 +6,12 @@ public class BatCollisionComponent : MonoBehaviour
     [SerializeField] private float detectionRadius = 10f;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private float speed;
+    [SerializeField] private float cooldownTime = 2f;
 
     private bool nextToPlayer = false;
     private PolygonCollider2D _playerCollider;
+    private bool finishedAttack = false;
+    private float nextAttackTime = 0f;
 
     private void Awake()
     {
@@ -30,6 +33,12 @@ public class BatCollisionComponent : MonoBehaviour
                 checkNextToPlayer(direction);
             }
         }
+
+        if (Time.time > nextAttackTime)
+        {
+            nextAttackTime += cooldownTime;
+            finishedAttack = true;
+        }
     }
 
     private void checkNextToPlayer(float direction)
@@ -40,8 +49,13 @@ public class BatCollisionComponent : MonoBehaviour
         Debug.DrawRay(raycastOrigin, Vector2.right * direction * 0.3f, Color.red);
         if (wallHit.collider != null)
         {
-            gameObject.SendMessage("Attack");
-            wallHit.collider.gameObject.SendMessage("Hit", 20);
+            if (finishedAttack && (Player.Instance == null || !Player.Instance.IsDead))
+            {
+                Debug.Log("Attack");
+                gameObject.SendMessage("Attack");
+                wallHit.collider.gameObject.SendMessage("Hit", 20);
+                finishedAttack = false;
+            }
         }
     }
 

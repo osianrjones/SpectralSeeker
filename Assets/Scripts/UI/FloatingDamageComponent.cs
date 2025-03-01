@@ -39,7 +39,6 @@ public class FloatingDamageComponent : MonoBehaviour
         damageText.text = String.Format("{0}", damage);
         destroyable = true;
         damageColor = color;
-        Debug.Log("damageColor: " + damageColor.ToString());
     }
     
 }

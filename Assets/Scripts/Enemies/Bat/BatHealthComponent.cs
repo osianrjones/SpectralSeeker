@@ -2,19 +2,19 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BatHealthComponent : MonoBehaviour
+public class BatHealthComponent : MonoBehaviour, IEntity
 {
     
     [SerializeField] private float health;
     [SerializeField] private GameObject damageTextPrefab;
 
     private float initialHealth;
-    private BatAnimationComponent _animatior;
+    private BatAnimationComponent _animator;
 
     private void Awake()
     {
         initialHealth = health;
-        _animatior = GetComponent<BatAnimationComponent>();
+        _animator = GetComponent<BatAnimationComponent>();
     }
 
     public void TakeDamage(float damage)
@@ -32,12 +32,11 @@ public class BatHealthComponent : MonoBehaviour
 
     private void Die()
     {
-        _animatior.Die();
+        _animator.Die();
     }
 
-    private Color DamageColor()
+    public Color DamageColor()
     {
-        Debug.Log(health);
         if (health <= 0f)
         {
             return Color.red;
@@ -49,7 +48,7 @@ public class BatHealthComponent : MonoBehaviour
         return Color.green;
     }
 
-    private void ShowDamage(float damage, Color damageColor)
+    public void ShowDamage(float damage, Color damageColor)
     {
             Vector3 randomOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
             GameObject damageText = Instantiate(damageTextPrefab, transform.position + randomOffset, Quaternion.identity);
