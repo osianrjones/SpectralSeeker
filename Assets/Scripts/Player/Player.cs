@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
         {
             Instance = this;
         }
+
         PlayerMovementComponent _movementComponent = GetComponent<PlayerMovementComponent>();
         PlayerAnimationComponent _animationComponent = GetComponent<PlayerAnimationComponent>();
 
