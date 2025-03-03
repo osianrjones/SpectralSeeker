@@ -12,6 +12,7 @@ public class BatCollisionComponent : MonoBehaviour
     private PolygonCollider2D _playerCollider;
     private bool finishedAttack = false;
     private float nextAttackTime = 0f;
+    private float direction;
 
     private void Awake()
     {
@@ -26,7 +27,7 @@ public class BatCollisionComponent : MonoBehaviour
         {
             if (collider.CompareTag("Player"))
             {
-                float direction = transform.position.x > collider.transform.position.x ? 1 : -1;
+                direction = transform.position.x > collider.transform.position.x ? 1 : -1;
                 Vector3 playerPos = new Vector3(collider.transform.position.x + direction, collider.transform.position.y, collider.transform.position.z);
                 transform.position = Vector2.MoveTowards(transform.position, playerPos, speed * Time.deltaTime);
                 flipSprite(collider.transform);
@@ -53,10 +54,25 @@ public class BatCollisionComponent : MonoBehaviour
             {
                 Debug.Log("Attack");
                 gameObject.SendMessage("Attack");
-                wallHit.collider.gameObject.SendMessage("Hit", 20);
-                finishedAttack = false;
             }
         }
+    }
+
+    public void checkHitPlayer()
+    {
+        direction = -direction;
+        Vector2 raycastOrigin = new Vector2(_playerCollider.bounds.center.x + direction * _playerCollider.bounds.extents.x, _playerCollider.bounds.center.y);
+        RaycastHit2D wallHit = Physics2D.Raycast(raycastOrigin, Vector2.right * direction, 0.3f, playerLayer);
+       
+        if (wallHit.collider != null)
+        {
+            if (Player.Instance == null || !Player.Instance.IsDead)
+            {
+                wallHit.collider.gameObject.SendMessage("Hit", 20);
+            }
+        }
+        
+        finishedAttack = false;
     }
 
     private void flipSprite(Transform playerTransform)
