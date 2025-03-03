@@ -1,20 +1,27 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class SnakeMovementComponent : MonoBehaviour
 {
    [SerializeField] private float moveSpeed = 5f; // Speed at which the entity moves
    [SerializeField] private float moveDuration = 3f; // Time in seconds to move before changing direction
    [SerializeField] private LayerMask wallLayer; // LayerMask to detect walls
 
-    private int direction; // Direction of movement: -1 for left, 1 for right
+    private int direction = 1; // Direction of movement: -1 for left, 1 for right
     private float timer;
     private bool isMoving = true;
-
+    private SnakeAnimationComponent _animator;
+    private Rigidbody2D _rb;
+    private SpriteRenderer _sr;
+    
     void Start()
     {
         // Randomly choose a direction at the start
         ChooseRandomDirection();
         timer = moveDuration;
+        _animator = GetComponent<SnakeAnimationComponent>();
+        _rb = GetComponent<Rigidbody2D>();
+        _sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -40,18 +47,15 @@ public class SnakeMovementComponent : MonoBehaviour
     }
 
     void MoveEntity()
-    {
-        // Calculate the movement vector
-        Vector3 movement = new Vector3(direction, 0, 0) * moveSpeed * Time.deltaTime;
-
-        // Move the entity
-        transform.Translate(movement);
+    { 
+        _rb.linearVelocity = new Vector2(direction * moveSpeed, _rb.linearVelocity.y);
     }
 
     void ReverseDirection()
     {
         // Reverse the direction
         direction *= -1;
+        _sr.flipX = direction > 0;
     }
 
     bool CheckForWall()

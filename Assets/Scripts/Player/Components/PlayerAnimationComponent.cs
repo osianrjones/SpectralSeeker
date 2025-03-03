@@ -80,13 +80,11 @@ public class PlayerAnimationComponent : MonoBehaviour
 
     public void OnWall()
     {
-        Debug.Log("ON WALL");
         _animator.SetBool("onWall", true);
     }
 
     public void OffWall()
     {
-        Debug.Log("OFF WALL");
         _animator.SetBool("onWall", false);
     }
 
