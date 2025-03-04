@@ -26,6 +26,10 @@ public class SnakeCollisionComponent : MonoBehaviour
             attacked = true;
             AttackPlayer();
         }
+        else
+        {
+            attacked = false;
+        }
     }
 
     public bool IsPlayerWithinDistance()
@@ -34,7 +38,16 @@ public class SnakeCollisionComponent : MonoBehaviour
 
         float horizontalDistance = Mathf.Abs(playerTransform.position.x - transform.position.x);
 
-        return horizontalDistance <= distance;
+        if (horizontalDistance <= distance)
+        {
+            Vector2 direction = (playerTransform.position - transform.position).normalized;
+            RaycastHit2D hit =
+                Physics2D.Raycast(transform.position, direction, distance, LayerMask.GetMask("Platform"));
+
+            return hit.collider == null;
+        }
+
+        return false;
     }
 
     public void AttackPlayer()

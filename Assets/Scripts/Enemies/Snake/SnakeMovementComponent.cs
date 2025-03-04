@@ -10,6 +10,7 @@ public class SnakeMovementComponent : MonoBehaviour
     private int direction = 1; // Direction of movement: -1 for left, 1 for right
     private float timer;
     private bool isMoving = true;
+    private bool isAttacking = false;
     private SnakeAnimationComponent _animator;
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
@@ -28,7 +29,7 @@ public class SnakeMovementComponent : MonoBehaviour
 
     void Update()
     {
-        if (isMoving)
+        if (isMoving && !isAttacking)
         {
             MoveEntity();
 
@@ -49,14 +50,21 @@ public class SnakeMovementComponent : MonoBehaviour
 
     private void AttackPlayer(Transform player)
     {
+        Debug.Log("Attack player");
+        isAttacking = true;
         direction = transform.position.x > player.transform.position.x ? 1 : -1;
-        Vector3 playerPos = new Vector3(player.transform.position.x + direction, player.transform.position.y, player.transform.position.z);
-        transform.position = Vector2.MoveTowards(transform.position, playerPos, moveSpeed * Time.deltaTime);
+        Vector3 playerPos = new Vector3(player.transform.position.x + direction, transform.position.y, player.transform.position.z);
+        var dif = player.transform.position - _rb.transform.position;
+        if(dif.magnitude > 1) {
+            _rb.AddForce(dif * moveSpeed * Time.deltaTime);
+        } else {
+            _rb.linearVelocity = Vector2.zero;
+        }
+        _animator.updateXVelocity();
     }
 
     void ChooseRandomDirection()
     {
-        // Randomly pick -1 (left) or 1 (right)
         direction = Random.Range(0, 2) * 2 - 1;
     }
 
@@ -67,7 +75,6 @@ public class SnakeMovementComponent : MonoBehaviour
 
     void ReverseDirection()
     {
-        // Reverse the direction
         direction *= -1;
         _sr.flipX = direction > 0;
     }
