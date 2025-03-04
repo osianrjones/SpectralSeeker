@@ -22,6 +22,8 @@ public class SnakeMovementComponent : MonoBehaviour
         _animator = GetComponent<SnakeAnimationComponent>();
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        GetComponent<SnakeHealthComponent>().Death += HandleDeath;
+        GetComponent<SnakeCollisionComponent>().Attack += AttackPlayer;
     }
 
     void Update()
@@ -38,6 +40,18 @@ public class SnakeMovementComponent : MonoBehaviour
                 timer = moveDuration; // Reset the timer
             }
         }
+    }
+
+    private void HandleDeath()
+    {
+        this.isMoving = false;
+    }
+
+    private void AttackPlayer(Transform player)
+    {
+        direction = transform.position.x > player.transform.position.x ? 1 : -1;
+        Vector3 playerPos = new Vector3(player.transform.position.x + direction, player.transform.position.y, player.transform.position.z);
+        transform.position = Vector2.MoveTowards(transform.position, playerPos, moveSpeed * Time.deltaTime);
     }
 
     void ChooseRandomDirection()

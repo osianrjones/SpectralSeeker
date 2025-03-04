@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SnakeHealthComponent : MonoBehaviour
@@ -7,6 +8,8 @@ public class SnakeHealthComponent : MonoBehaviour
 
     private float _initialHealth;
     private SnakeAnimationComponent _animator;
+
+    public Action Death;
 
     private void Awake()
     {
@@ -20,6 +23,8 @@ public class SnakeHealthComponent : MonoBehaviour
 
         if (health <= 0)
         {
+            Debug.Log("DIE");
+            InvokeDeathEvent();
             Die();
         }
 
@@ -27,6 +32,11 @@ public class SnakeHealthComponent : MonoBehaviour
         ShowDamage(damage, damageColor);
     }
 
+    private void InvokeDeathEvent()
+    {
+        Death?.Invoke();
+    }
+    
     private void Die()
     {
         _animator.Die();
@@ -47,7 +57,7 @@ public class SnakeHealthComponent : MonoBehaviour
 
     public void ShowDamage(float damage, Color damageColor)
     {
-        Vector3 randomOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+        Vector3 randomOffset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f), 0);
         GameObject damageText = Instantiate(damageTextPrefab, transform.position + randomOffset, Quaternion.identity);
         FloatingDamageComponent damageComponent = damageText.GetComponent<FloatingDamageComponent>();
         Debug.Log(damageComponent);

@@ -51,8 +51,7 @@ public class BatCollisionComponent : MonoBehaviour
         if (wallHit.collider != null)
         {
             if (finishedAttack && (Player.Instance == null || !Player.Instance.IsDead))
-            {
-                Debug.Log("Attack");
+            {               
                 gameObject.SendMessage("Attack");
             }
         }
