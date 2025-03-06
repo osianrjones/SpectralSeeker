@@ -6,7 +6,8 @@ public class SnakeMovementComponent : MonoBehaviour
    [SerializeField] private float moveSpeed = 5f; // Speed at which the entity moves
    [SerializeField] private float moveDuration = 3f; // Time in seconds to move before changing direction
    [SerializeField] private LayerMask wallLayer; // LayerMask to detect walls
-
+   [SerializeField]  private Transform _playerTransform;
+   
     private int direction = 1; // Direction of movement: -1 for left, 1 for right
     private float timer;
     private bool isMoving = true;
@@ -14,6 +15,7 @@ public class SnakeMovementComponent : MonoBehaviour
     private SnakeAnimationComponent _animator;
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
+   
     
     void Start()
     {
@@ -25,6 +27,7 @@ public class SnakeMovementComponent : MonoBehaviour
         _sr = GetComponent<SpriteRenderer>();
         GetComponent<SnakeHealthComponent>().Death += HandleDeath;
         GetComponent<SnakeCollisionComponent>().Attack += AttackPlayer;
+        GetComponent<SnakeCollisionComponent>().DefaultMovement += PlayerOutOfRange;
     }
 
     void Update()
@@ -40,27 +43,37 @@ public class SnakeMovementComponent : MonoBehaviour
                 ReverseDirection();
                 timer = moveDuration; // Reset the timer
             }
+        } else if (isMoving && isAttacking)
+        {
+            MoveToPlayer();
         }
     }
 
     private void HandleDeath()
     {
-        this.isMoving = false;
+        isMoving = false;
     }
 
-    private void AttackPlayer(Transform player)
+    private void MoveToPlayer()
     {
-        Debug.Log("Attack player");
-        isAttacking = true;
-        direction = transform.position.x > player.transform.position.x ? 1 : -1;
-        Vector3 playerPos = new Vector3(player.transform.position.x + direction, transform.position.y, player.transform.position.z);
-        var dif = player.transform.position - _rb.transform.position;
-        if(dif.magnitude > 1) {
-            _rb.AddForce(dif * moveSpeed * Time.deltaTime);
-        } else {
-            _rb.linearVelocity = Vector2.zero;
+        if (_playerTransform != null)
+        {
+            direction = transform.position.x > _playerTransform.transform.position.x ? 1 : -1;
+            Vector2 playerPos = new Vector2(_playerTransform.transform.position.x, transform.position.y);
+            transform.position = Vector2.MoveTowards(transform.position, playerPos, moveSpeed * Time.deltaTime);
         }
-        _animator.updateXVelocity();
+    }
+
+    private void AttackPlayer()
+    {
+        isAttacking = true;
+    }
+
+    private void PlayerOutOfRange()
+    {
+        isAttacking = false;
+        _rb.linearVelocity = Vector2.one;
+        _animator.Idle();
     }
 
     void ChooseRandomDirection()
@@ -69,7 +82,8 @@ public class SnakeMovementComponent : MonoBehaviour
     }
 
     void MoveEntity()
-    { 
+    {
+        Debug.Log("direction: " + direction);
         _rb.linearVelocity = new Vector2(direction * moveSpeed, _rb.linearVelocity.y);
     }
 

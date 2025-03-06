@@ -9,7 +9,8 @@ public class SnakeCollisionComponent : MonoBehaviour
     private Transform playerTransform;
     private bool attacked = false;
 
-    public Action<Transform> Attack;
+    public Action Attack;
+    public Action DefaultMovement;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,15 +21,13 @@ public class SnakeCollisionComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsPlayerWithinDistance() && !attacked)
+        if (IsPlayerWithinDistance())
         {
-            Debug.Log("Attack");
-            attacked = true;
-            AttackPlayer();
+            PlayerInRange();
         }
         else
         {
-            attacked = false;
+            PlayerOutOfRange();
         }
     }
 
@@ -50,9 +49,15 @@ public class SnakeCollisionComponent : MonoBehaviour
         return false;
     }
 
-    public void AttackPlayer()
+    public void PlayerInRange()
     {
-        Attack?.Invoke(playerTransform.transform);
+        Attack?.Invoke();
+    }
+
+    public void PlayerOutOfRange()
+    {
+        Debug.Log("Player out of range");
+        DefaultMovement?.Invoke();
     }
 
     private void OnDrawGizmosSelected()

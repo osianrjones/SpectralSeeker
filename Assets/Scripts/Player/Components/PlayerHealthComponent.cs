@@ -1,14 +1,18 @@
+using System;
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerHealthComponent : MonoBehaviour, IEntity
 {
-    [SerializeField] private float health = 100f;
+    public float health { get; private set; }
     [SerializeField] private GameObject damageTextPrefab;
 
-    private float initialHealth;
+    public float initialHealth { get; private set; }
 
     private void Awake()
     {
+        health = 100f;
         initialHealth = health;
     }
 

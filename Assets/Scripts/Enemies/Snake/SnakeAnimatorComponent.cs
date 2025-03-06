@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -16,7 +17,12 @@ public class SnakeAnimationComponent : MonoBehaviour
 
     public void updateXVelocity()
     {
-        _animator.SetFloat("xVelocity", _rb.linearVelocity.x);
+        _animator.SetFloat("xVelocity", 1);
+    }
+
+    public void Idle()
+    {
+        _animator.SetFloat("xVelocity", 0);
     }
 
     public void Hurt()
