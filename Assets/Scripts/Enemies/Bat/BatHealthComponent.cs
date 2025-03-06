@@ -5,14 +5,15 @@ using Random = UnityEngine.Random;
 public class BatHealthComponent : MonoBehaviour, IEntity
 {
     
-    [SerializeField] private float health;
+    public float health { get; private set; }
     [SerializeField] private GameObject damageTextPrefab;
 
-    private float initialHealth;
+    public float initialHealth { get; private set; }
     private BatAnimationComponent _animator;
 
     private void Awake()
     {
+        health = 30f;
         initialHealth = health;
         _animator = GetComponent<BatAnimationComponent>();
     }
