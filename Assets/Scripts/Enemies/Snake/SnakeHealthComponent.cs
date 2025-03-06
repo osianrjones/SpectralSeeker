@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class SnakeHealthComponent : MonoBehaviour
 {
-    [SerializeField] private float health = 20;
+    public float health { get; private set; }
     [SerializeField] private GameObject damageTextPrefab;
 
-    private float _initialHealth;
+    public float _initialHealth { get; private set; }
     private SnakeAnimationComponent _animator;
 
     public Action Death;
 
     private void Awake()
     {
+        health = 20f;
         _initialHealth = health;
         _animator = GetComponent<SnakeAnimationComponent>();
     }

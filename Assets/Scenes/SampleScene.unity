@@ -206,6 +206,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &32707561 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8363530191310314692, guid: 886c42e790a84954392ece294117ea89, type: 3}
+  m_PrefabInstance: {fileID: 1215706013}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &55490434
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +642,7 @@ Transform:
   m_GameObject: {fileID: 207853494}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.44, y: -6.22, z: 0}
+  m_LocalPosition: {x: -20.78, y: -6.22, z: 0}
   m_LocalScale: {x: 2.8, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -756,7 +767,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2549e9c057892240a6080bf38601b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
   damageTextPrefab: {fileID: 1004714833}
 --- !u!114 &207853504
 MonoBehaviour:
@@ -4977,6 +4987,10 @@ PrefabInstance:
       value: -938212265
       objectReference: {fileID: 0}
     - target: {fileID: 2827028557597306656, guid: 886c42e790a84954392ece294117ea89, type: 3}
+      propertyPath: m_Name
+      value: SnakeHealth
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827028557597306656, guid: 886c42e790a84954392ece294117ea89, type: 3}
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
@@ -5089,6 +5103,10 @@ PrefabInstance:
       value: -0.1159
       objectReference: {fileID: 0}
     - target: {fileID: 6152696607564760451, guid: 886c42e790a84954392ece294117ea89, type: 3}
+      propertyPath: m_Name
+      value: SnakeBackground
+      objectReference: {fileID: 0}
+    - target: {fileID: 6152696607564760451, guid: 886c42e790a84954392ece294117ea89, type: 3}
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
@@ -5111,6 +5129,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 34555816154817316, guid: 886c42e790a84954392ece294117ea89, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1215706018}
+    - targetCorrespondingSourceObject: {fileID: 34555816154817316, guid: 886c42e790a84954392ece294117ea89, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1215706019}
   m_SourcePrefab: {fileID: 100100000, guid: 886c42e790a84954392ece294117ea89, type: 3}
 --- !u!224 &1215706014 stripped
 RectTransform:
@@ -5131,6 +5152,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 207853498}
   offset: {x: 0, y: 1, z: 0}
+--- !u!114 &1215706019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203453515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c0c86475bfacc847be5ab65a1a7b9eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundBarFill: {fileID: 1965373743}
+  healthBarFill: {fileID: 32707561}
+  entity: {fileID: 207853503}
 --- !u!1 &1225590032
 GameObject:
   m_ObjectHideFlags: 0
@@ -6483,6 +6519,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901498441}
   m_CullTransparentMesh: 1
+--- !u!114 &1965373743 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6149036245118870538, guid: 886c42e790a84954392ece294117ea89, type: 3}
+  m_PrefabInstance: {fileID: 1215706013}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1974306510
 GameObject:
   m_ObjectHideFlags: 0

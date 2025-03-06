@@ -2,11 +2,11 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BatHealthBar : MonoBehaviour
+public class SnakeHealthBar : MonoBehaviour
 {
     [SerializeField] private Image backgroundBarFill;
     [SerializeField] private Image healthBarFill;
-    [SerializeField] private BatHealthComponent entity;
+    [SerializeField] private SnakeHealthComponent entity;
 
     private void Update()
     {
@@ -14,7 +14,7 @@ public class BatHealthBar : MonoBehaviour
         {
             if (entity)
             {
-                healthBarFill.fillAmount = entity.health / entity.initialHealth;
+                healthBarFill.fillAmount = entity.health / entity._initialHealth;
             }
             
             if (healthBarFill.fillAmount >= 1f)
@@ -37,7 +37,7 @@ public class BatHealthBar : MonoBehaviour
                 color2.a = 255f;
                 backgroundBarFill.color = color2;
 
-                if (healthBarFill.fillAmount <= 0.33f)
+                if (healthBarFill.fillAmount <= 0.50f)
                 {
                     Color lowHealth = Color.red;
                     healthBarFill.color = lowHealth;
