@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(BoxCollider2D))]
@@ -43,13 +44,10 @@ public class ScrollVisibilityComponent : MonoBehaviour
         }
 
         Vector2 directionToScroll = (playerTorch.transform.position - transform.position).normalized;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToScroll, maxVisibilityDistance, playerLayer);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, directionToScroll, maxVisibilityDistance, playerLayer);
 
-        if (hit.collider != null)
-        {
-            Debug.Log("Ray hit: " + hit.collider.gameObject.name);
-        }
+        //foreach hit check for player
 
-        return hit.collider == null || hit.collider.transform == playerTorch;
+        return false;
     }
 }
