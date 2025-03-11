@@ -21,12 +21,17 @@ public class ScrollManagerComponent : MonoBehaviour
 
     public void ShowNote()
     {
-        string path = "Assets/StreamingAssets/" + fileName;
-        //Read the text from directly from the test.txt file
-        StreamReader reader = new StreamReader(path); 
-        Debug.Log(reader.ReadToEnd());
-        reader.Close();
+        string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
 
+        if (File.Exists(filePath))
+        {
+            string note = File.ReadAllText(filePath);
+            inputField.text = note;
+        }
+        else
+        {
+            inputField.text = "This is not the note you are looking for...";
+        }
         inputField.interactable = false;
         
         notePanel.SetActive(true);
@@ -37,5 +42,7 @@ public class ScrollManagerComponent : MonoBehaviour
     {
         yield return new WaitForSeconds(closeTime);
         notePanel.SetActive(false);
+        gameObject.gameObject.SetActive(false);
+        Debug.Log("DEACTIVATED");
     }
 }

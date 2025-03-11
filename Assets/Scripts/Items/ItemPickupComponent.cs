@@ -36,9 +36,9 @@ public class ItemPickupComponent : MonoBehaviour
                 else
                 {
                     inventory.AddItemToInventory(itemIcon, itemName);
+                    gameObject.gameObject.SetActive(false);
                 }
-                
-                gameObject.gameObject.SetActive(false);   
+                   
             }
         }
     }
