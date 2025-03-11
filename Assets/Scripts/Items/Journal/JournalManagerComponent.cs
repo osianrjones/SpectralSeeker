@@ -21,9 +21,12 @@ public class JournalManagerComponent : MonoBehaviour
         journalPanel.SetActive(!isOpen);
         if (!isOpen)
         {
-            if (char.IsDigit(inputField.text[inputField.text.Length - 1]))
+            if (inputField.text.Length > 0)
             {
-                inputField.text = inputField.text.Substring(0, inputField.text.Length - 1);
+                if (char.IsDigit(inputField.text[inputField.text.Length - 1]))
+                {
+                    inputField.text = inputField.text.Substring(0, inputField.text.Length - 1);
+                }
             }
         }
     }
