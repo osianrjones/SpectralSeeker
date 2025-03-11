@@ -50,4 +50,9 @@ public class Player : MonoBehaviour
         spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0f);
         Time.timeScale = 0f;
     }
+
+    public float FacingDirection()
+    {
+        return spriteRenderer.flipX ? -1 : 1;
+    }
 }
