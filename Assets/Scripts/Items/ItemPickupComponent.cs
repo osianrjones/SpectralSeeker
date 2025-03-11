@@ -8,7 +8,7 @@ public class ItemPickupComponent : MonoBehaviour
     [SerializeField] private float pickupCooldown;
     private bool canBePickedUp = false;
 
-    public event Action<IItem> ItemPickup;
+    public event Action ScrollPickedUp;
 
     private void Start()
     {
@@ -28,10 +28,17 @@ public class ItemPickupComponent : MonoBehaviour
             InventoryManager inventory = collision.GetComponent<InventoryManager>();
 
             if (inventory != null && canBePickedUp)
-            {               
-                inventory.AddItemToInventory(itemIcon, itemName);
-
-                gameObject.gameObject.SetActive(false);
+            {
+                if (itemName.Contains("Scroll"))
+                {
+                    ScrollPickedUp?.Invoke();
+                }
+                else
+                {
+                    inventory.AddItemToInventory(itemIcon, itemName);
+                }
+                
+                gameObject.gameObject.SetActive(false);   
             }
         }
     }
