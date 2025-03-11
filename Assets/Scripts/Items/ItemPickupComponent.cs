@@ -9,6 +9,7 @@ public class ItemPickupComponent : MonoBehaviour
     private bool canBePickedUp = false;
 
     public event Action ScrollPickedUp;
+    public event Action<int> CoinPickedUp;
 
     private void Start()
     {
@@ -32,6 +33,12 @@ public class ItemPickupComponent : MonoBehaviour
                 if (itemName.Contains("Scroll"))
                 {
                     ScrollPickedUp?.Invoke();
+                } else if (itemName.Contains("Coin"))
+                {
+                    var coin = GetComponent<CoinItemComponent>();
+                    int worth = coin.definedValue;
+                    
+                    //add to player score
                 }
                 else
                 {

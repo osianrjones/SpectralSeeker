@@ -5,7 +5,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScrollManagerComponent : MonoBehaviour
+public class ScrollManagerComponent : MonoBehaviour, IScroll
 {
     [SerializeField] GameObject notePanel;
     [SerializeField] InputField inputField;
@@ -38,7 +38,7 @@ public class ScrollManagerComponent : MonoBehaviour
         StartCoroutine(CloseNote());
     }
 
-    IEnumerator CloseNote()
+    public IEnumerator CloseNote()
     {
         yield return new WaitForSeconds(closeTime);
         notePanel.SetActive(false);
