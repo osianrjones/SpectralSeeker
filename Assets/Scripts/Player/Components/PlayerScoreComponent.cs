@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class PlayerScoreComponent : MonoBehaviour
 {
     public int score { get; private set; }
-
     public static PlayerScoreComponent Instance { get; private set; }
     private void Awake()
     {

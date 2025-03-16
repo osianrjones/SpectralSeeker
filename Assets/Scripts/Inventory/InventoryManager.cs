@@ -57,15 +57,9 @@ public class InventoryManager : MonoBehaviour
         MonoBehaviour component = inventoryItems[index];
         if (component == null) { return; }
 
-        if (component is  FlashlightItemComponent flashlight)
+        if (component is IItem item)
         {
-            flashlight.ToggleUse();
-        } else if (component is JournalManagerComponent journal)
-        {
-            journal.ToggleUse();
-        } else if (component is SwordItemComponent sword)
-        {
-            sword.ToggleUse();
+            item.ToggleUse();
         }
         
         lastPressedItem = index;

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class SwordItemComponent : MonoBehaviour
+public class SwordItemComponent : MonoBehaviour, IItem
 {
     private PlayerAnimationComponent animator;
     private bool isHolding = false;

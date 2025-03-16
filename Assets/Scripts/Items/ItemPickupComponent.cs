@@ -38,7 +38,10 @@ public class ItemPickupComponent : MonoBehaviour
                     var coin = GetComponent<CoinItemComponent>();
                     int worth = coin.definedValue;
                     
-                    //add to player score
+                    var playerScore = collision.GetComponent<PlayerScoreComponent>();
+                    playerScore.IncrementScore(worth);
+                    
+                    coin.Destroy();
                 }
                 else
                 {

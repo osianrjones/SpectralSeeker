@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class JournalManagerComponent : MonoBehaviour
+public class JournalManagerComponent : MonoBehaviour, IItem
 {
     [SerializeField] GameObject journalPanel;
     [SerializeField] InputField inputField;

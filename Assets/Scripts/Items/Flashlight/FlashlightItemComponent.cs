@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class FlashlightItemComponent : MonoBehaviour
+public class FlashlightItemComponent : MonoBehaviour, IItem
 {
 
     private Light2D torchLight;

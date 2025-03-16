@@ -7,8 +7,8 @@ public class ScoreComponent : MonoBehaviour
     [SerializeField] private Text scoreText;
     private int lastScore = 0;
     
-    private PlayerScoreComponent _playerScore;
-
+    [SerializeField] private PlayerScoreComponent _playerScore;
+    
     private int RetrieveScore()
     {
         return _playerScore.score;
