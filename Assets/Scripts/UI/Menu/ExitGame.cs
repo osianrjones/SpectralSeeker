@@ -4,7 +4,6 @@ public class ExitGame : MonoBehaviour
 {
 
     [SerializeField] private GameObject answerSelection;
-    [SerializeField] private MenuManager menuManager;
 
     private static int score;
 
@@ -14,7 +13,7 @@ public class ExitGame : MonoBehaviour
 
         //todo leaderboard
 
-        menuManager.BackToMainMenu();
+        MenuManager.BackToMainMenu();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
