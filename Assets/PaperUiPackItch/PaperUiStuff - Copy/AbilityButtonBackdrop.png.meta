@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      AbilityButtonBackdrop_0: 7983478860780277627
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

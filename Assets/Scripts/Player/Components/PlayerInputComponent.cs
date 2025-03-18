@@ -15,6 +15,8 @@ public class PlayerInputComponent : MonoBehaviour
     private bool hasJumpedOffWall = false;
     private bool disableMovement = false;
 
+    [SerializeField] private GameObject Menu;
+
     void Awake()
     {
         _playerMovement = GetComponent<PlayerMovementComponent>();
@@ -78,6 +80,19 @@ public class PlayerInputComponent : MonoBehaviour
         if (Keyboard.current.gKey.wasPressedThisFrame)
         {
             _inventoryManager.throwItem();
+        }
+
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            Menu.SetActive(!Menu.activeSelf);
+            
+            if (Time.timeScale == 1f)
+            {
+                Time.timeScale = 0f;
+            } else
+            {
+                Time.timeScale = 1f;
+            }
         }
     }
 
