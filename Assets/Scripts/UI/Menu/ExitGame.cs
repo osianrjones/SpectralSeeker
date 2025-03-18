@@ -2,30 +2,28 @@ using UnityEngine;
 
 public class ExitGame : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private GameObject answerSelection;
+    [SerializeField] private MenuManager menuManager;
 
-    public void Finish()
+    private static int score;
+
+    public void FinishGame(bool correctAnswers)
     {
-       
+        if (correctAnswers) score += 100;
+
+        //todo leaderboard
+
+        menuManager.BackToMainMenu();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")) {
-
-            gameObject.SetActive(true);
-
-            int score = collision.GetComponentInChildren<PlayerScoreComponent>().score;
+        if (collision.CompareTag("Player")) 
+        {
+            Time.timeScale = 0f;
+            score = collision.GetComponentInChildren<PlayerScoreComponent>().score;
+            answerSelection.SetActive(true);
         }
     }
 }

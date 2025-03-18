@@ -64,6 +64,12 @@ public class PlayerInputComponent : MonoBehaviour
                     break;
                 case 3: if (keyboard.digit3Key.wasPressedThisFrame) { inventoryPressed(i);}
                     break;
+                case 4:
+                    if (keyboard.digit4Key.wasPressedThisFrame) { inventoryPressed(i); }
+                    break;
+                case 5:
+                    if (keyboard.digit5Key.wasPressedThisFrame) { inventoryPressed(i); }
+                    break;
                 default:
                     break;
             }

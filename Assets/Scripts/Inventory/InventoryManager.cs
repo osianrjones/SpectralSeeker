@@ -33,6 +33,8 @@ public class InventoryManager : MonoBehaviour
                 return GetComponentInChildren<FlashlightItemComponent>();
             case "Sword":
                 return GetComponentInChildren<SwordItemComponent>();
+            case "Heart":
+                return GetComponentInChildren<HeartItemComponent>();
             default:
                 return null;              
         }
@@ -46,6 +48,8 @@ public class InventoryManager : MonoBehaviour
                 return "Flashlight";
             case SwordItemComponent component:
                 return "Sword";
+            case HeartItemComponent component:
+                return "Heart";
             default:
                 return null;
         }
@@ -60,6 +64,11 @@ public class InventoryManager : MonoBehaviour
         if (component is IItem item)
         {
             item.ToggleUse();
+        }
+
+        if (component is HeartItemComponent)
+        {
+            RemoveItemFromSlot(index);
         }
         
         lastPressedItem = index;

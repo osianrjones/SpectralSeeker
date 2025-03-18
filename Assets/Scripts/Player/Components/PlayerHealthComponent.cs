@@ -59,4 +59,14 @@ public class PlayerHealthComponent : MonoBehaviour, IEntity
     {
         gameObject.GetComponent<PlayerAnimationComponent>().Die();
     }
+
+    public void Heal(int amount)
+    {
+        health += amount;
+
+        if (health > 100)
+        {
+            health = 100;
+        }
+    }
 }
