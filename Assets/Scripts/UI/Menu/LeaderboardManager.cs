@@ -11,11 +11,23 @@ public class LeaderboardManager : MonoBehaviour
     [SerializeField] private List<GameObject> usernames;
     [SerializeField] private List<GameObject> scores;
 
+    [SerializeField] private GameObject position;
+    [SerializeField] private GameObject username;
+    [SerializeField] private GameObject score;
+
     private static Leaderboard leaderboard;
+    private static PlayerScoreComponent playerScore;
 
     private void Start()
     {
         LoadLeaderboard();
+        UpdateCurrentPosition();
+        playerScore = PlayerScoreComponent.Instance;
+    }
+
+    private void Update()
+    {
+        UpdateCurrentPosition();
     }
 
     public void LoadLeaderboard()
@@ -28,6 +40,17 @@ public class LeaderboardManager : MonoBehaviour
             usernames[i].GetComponent<Text>().text = topScore[i].username;
             scores[i].GetComponent<Text>().text = topScore[i].score.ToString();
         }
+        
+    }
 
+    private void UpdateCurrentPosition()
+    {
+        int score = PlayerScoreComponent.Instance.score;
+        int position = leaderboard.estimatePosition(score);
+        string username = Leaderboard.activeUser;
+
+        this.position.GetComponent<Text>().text = position.ToString();
+        this.username.GetComponent<Text>().text = username.ToString();
+        this.score.GetComponent<Text>().text = score.ToString();
     }
 }
