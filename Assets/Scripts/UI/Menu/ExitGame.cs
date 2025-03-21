@@ -3,7 +3,7 @@ using UnityEngine;
 public class ExitGame : MonoBehaviour
 {
 
-    [SerializeField] private GameObject answerSelection;
+    [SerializeField] private GameObject answerSelections;
 
     private static int score;
 
@@ -11,7 +11,7 @@ public class ExitGame : MonoBehaviour
     {
         if (correctAnswers) score += 100;
 
-        //todo leaderboard
+        Leaderboard.Instance.UpdateScore(score);
 
         MenuManager.BackToMainMenu();
     }
@@ -22,7 +22,7 @@ public class ExitGame : MonoBehaviour
         {
             Time.timeScale = 0f;
             score = collision.GetComponentInChildren<PlayerScoreComponent>().score;
-            answerSelection.SetActive(true);
+            answerSelections.SetActive(true);
         }
     }
 }

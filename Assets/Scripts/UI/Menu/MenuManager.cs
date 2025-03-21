@@ -1,17 +1,21 @@
-using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class MenuManager : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI usernameInput;
     public void PlayGame()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("GameScene");
-    }
+        if (usernameInput.text.Length > 3)
+        {
+            Leaderboard.setActiveUser(usernameInput.text);
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("GameScene");
 
-    public void LoadLeaderboard()
-    {
-        //todo
+        }
     }
 
     public void QuitGame()
