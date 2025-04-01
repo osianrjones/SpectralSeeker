@@ -25,6 +25,7 @@ public class LeaderboardManager : MonoBehaviour
         UpdateLastUsername();
         UpdateCurrentPosition();
         playerScore = PlayerScoreComponent.Instance;
+        currentUsernamePosition();
     }
 
     private void UpdateLastUsername()
@@ -55,6 +56,18 @@ public class LeaderboardManager : MonoBehaviour
         
     }
 
+    private void currentUsernamePosition()
+    {
+        string lastPlayer = Leaderboard.getLastPlayer();
+        
+         int score = Leaderboard.Instance.playerScore(lastPlayer);
+         int position = leaderboard.estimatePosition(score);
+
+         this.position.GetComponent<Text>().text = position.ToString();
+         this.username.GetComponent<Text>().text = Leaderboard.getLastPlayer().ToString();
+         this.score.GetComponent<Text>().text = score.ToString();
+    }
+
     private void UpdateCurrentPosition()
     {
         if (PlayerScoreComponent.Instance != null)
@@ -66,25 +79,6 @@ public class LeaderboardManager : MonoBehaviour
             this.position.GetComponent<Text>().text = position.ToString();
             this.username.GetComponent<Text>().text = username.ToString();
             this.score.GetComponent<Text>().text = score.ToString();
-        } else
-        {
-            //must be in menu
-            string username = gameObject.GetComponent<MenuManager>().getUsernameInput();
-            if (username.Length > 3)
-            {
-                int score = Leaderboard.Instance.playerScore(username);
-                int position = leaderboard.estimatePosition(score);
-
-                this.position.GetComponent<Text>().text = position.ToString();
-                this.username.GetComponent<Text>().text = username.ToString();
-                this.score.GetComponent<Text>().text = score.ToString();
-            } else
-            {
-                this.position.GetComponent<Text>().text = "X";
-                this.username.GetComponent<Text>().text = "Enter a username...";
-                this.score.GetComponent<Text>().text = "0";
-            }       
-
-        }
+        } 
     }
 }

@@ -94,6 +94,7 @@ public class Leaderboard : MonoBehaviour, ILeaderboard
             }
 
             leaderboard.leaderboard = leaderboard.leaderboard.OrderByDescending(s => s.score).ToList();
+            lastPlayer(username);
             SaveLeaderboard(leaderboard);
         }
         else
@@ -137,7 +138,9 @@ public class Leaderboard : MonoBehaviour, ILeaderboard
             return score;
         } else
         {
-            return 0;
+            int score = leaderboard.leaderboard.Find(p => p.username == username).score;
+
+            return score == 0 ? -1 : score;
         }
     }
 
@@ -149,5 +152,10 @@ public class Leaderboard : MonoBehaviour, ILeaderboard
     public static string getLastPlayer()
     {
         return Leaderboard.leaderboard.lastPlayer;
+    }
+
+    public bool unqiueUsername(string wantedUsername)
+    {
+        return !Leaderboard.leaderboard.leaderboard.Exists(n => n.username == wantedUsername);
     }
 }
