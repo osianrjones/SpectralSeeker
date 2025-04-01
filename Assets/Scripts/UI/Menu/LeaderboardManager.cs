@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -21,8 +22,19 @@ public class LeaderboardManager : MonoBehaviour
     private void Start()
     {
         LoadLeaderboard();
+        UpdateLastUsername();
         UpdateCurrentPosition();
         playerScore = PlayerScoreComponent.Instance;
+    }
+
+    private void UpdateLastUsername()
+    {
+        string lastPlayer = Leaderboard.getLastPlayer();
+        if (lastPlayer != "")
+        {
+            gameObject.GetComponent<MenuManager>().getInput().text = lastPlayer;
+        }
+      
     }
 
     private void Update()
@@ -45,12 +57,34 @@ public class LeaderboardManager : MonoBehaviour
 
     private void UpdateCurrentPosition()
     {
-        int score = PlayerScoreComponent.Instance.score;
-        int position = leaderboard.estimatePosition(score);
-        string username = Leaderboard.activeUser;
+        if (PlayerScoreComponent.Instance != null)
+        {
+            int score = PlayerScoreComponent.Instance.score;
+            int position = leaderboard.estimatePosition(score);
+            string username = Leaderboard.activeUser;
 
-        this.position.GetComponent<Text>().text = position.ToString();
-        this.username.GetComponent<Text>().text = username.ToString();
-        this.score.GetComponent<Text>().text = score.ToString();
+            this.position.GetComponent<Text>().text = position.ToString();
+            this.username.GetComponent<Text>().text = username.ToString();
+            this.score.GetComponent<Text>().text = score.ToString();
+        } else
+        {
+            //must be in menu
+            string username = gameObject.GetComponent<MenuManager>().getUsernameInput();
+            if (username.Length > 3)
+            {
+                int score = Leaderboard.Instance.playerScore(username);
+                int position = leaderboard.estimatePosition(score);
+
+                this.position.GetComponent<Text>().text = position.ToString();
+                this.username.GetComponent<Text>().text = username.ToString();
+                this.score.GetComponent<Text>().text = score.ToString();
+            } else
+            {
+                this.position.GetComponent<Text>().text = "X";
+                this.username.GetComponent<Text>().text = "Enter a username...";
+                this.score.GetComponent<Text>().text = "0";
+            }       
+
+        }
     }
 }

@@ -6,7 +6,8 @@ using UnityEngine.UIElements;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI usernameInput;
+    [SerializeField] public TextMeshProUGUI usernameInput;
+
     public void PlayGame()
     {
         if (usernameInput.text.Length > 3)
@@ -26,5 +27,21 @@ public class MenuManager : MonoBehaviour
     public static void BackToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public string getUsernameInput()
+    {
+        if (usernameInput.text.Length > 3)
+        {
+            return usernameInput.text;
+        } else
+        {
+            return "";
+        }
+    }
+
+    public TextMeshProUGUI getInput()
+    {
+        return usernameInput;
     }
 }

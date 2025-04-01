@@ -64,6 +64,7 @@ public class Leaderboard : MonoBehaviour, ILeaderboard
             }
 
             leaderboard.leaderboard = leaderboard.leaderboard.OrderByDescending(s => s.score).ToList();
+            lastPlayer(username);
             SaveLeaderboard(leaderboard);
         } else
         {
@@ -125,4 +126,28 @@ public class Leaderboard : MonoBehaviour, ILeaderboard
         return index;
     } 
 
+    public int playerScore(string username)
+    {
+        if (leaderboard == null)
+        {
+            loadLeaderboard();
+
+            int score = leaderboard.leaderboard.Find(p => p.username == username).score;
+
+            return score;
+        } else
+        {
+            return 0;
+        }
+    }
+
+    public void lastPlayer(string player)
+    {
+        Leaderboard.leaderboard.lastPlayer = player;
+    }
+
+    public static string getLastPlayer()
+    {
+        return Leaderboard.leaderboard.lastPlayer;
+    }
 }
