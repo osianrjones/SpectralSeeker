@@ -9,13 +9,10 @@ public class VolumeController : MonoBehaviour
 
     void Start()
     {
-        // Load saved volume or default to 0.75 if not set
         volumeSlider.value = PlayerPrefs.GetFloat(VolumeKey, 0.75f);
 
-        // Set initial volume
         SetVolume(volumeSlider.value);
 
-        // Add listener for when slider value changes
         volumeSlider.onValueChanged.AddListener(SetVolume);
     }
 
@@ -27,7 +24,6 @@ public class VolumeController : MonoBehaviour
             audioSource.volume = volume;
         }
 
-        // For global audio (like AudioListener)
         AudioListener.volume = volume;
 
         // Save the volume setting

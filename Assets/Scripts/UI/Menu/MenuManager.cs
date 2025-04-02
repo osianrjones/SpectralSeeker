@@ -47,7 +47,13 @@ public class MenuManager : MonoBehaviour
     public void ShowSettings()
     {
         leaderboardUI.SetActive(false);
+        settingsUI.SetActive(true);
+    }
 
+    public void ShowLeaderboard()
+    {
+        settingsUI.SetActive(false);
+        leaderboardUI.SetActive(true);
     }
 
     public string GetUsernameInput()
