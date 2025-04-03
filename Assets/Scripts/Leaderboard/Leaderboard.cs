@@ -125,6 +125,11 @@ public class Leaderboard : MonoBehaviour, ILeaderboard
         LeaderboardEntry entry = leaderboard.leaderboard.OrderByDescending(s => s.score).ToList().Find(p => p.score < score);
         int index = leaderboard.leaderboard.IndexOf(entry);
 
+        if (index == -1)
+        {
+            return leaderboard.leaderboard.Count;
+        }
+
         return index;
     } 
 

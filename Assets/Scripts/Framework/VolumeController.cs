@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class VolumeController : MonoBehaviour
 {
     [SerializeField] private Slider volumeSlider;
-    [SerializeField] private AudioSource[] audioSources; // For multiple audio sources
-    private const string VolumeKey = "GameVolume"; // PlayerPrefs key
+    [SerializeField] private AudioSource[] audioSources;
+    private const string VolumeKey = "GameVolume";
 
     void Start()
     {
@@ -18,7 +18,6 @@ public class VolumeController : MonoBehaviour
 
     public void SetVolume(float volume)
     {
-        // Set volume for all audio sources
         foreach (var audioSource in audioSources)
         {
             audioSource.volume = volume;
@@ -26,7 +25,6 @@ public class VolumeController : MonoBehaviour
 
         AudioListener.volume = volume;
 
-        // Save the volume setting
         PlayerPrefs.SetFloat(VolumeKey, volume);
         PlayerPrefs.Save();
     }
