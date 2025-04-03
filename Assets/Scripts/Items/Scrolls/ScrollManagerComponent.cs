@@ -22,7 +22,7 @@ public class ScrollManagerComponent : MonoBehaviour, IScroll
 
     public void ShowNote()
     {
-        SoundManager.Instance.PlaySFX(pickupSound);
+        ServiceLocator.Get<ISoundService>().PlaySFX(pickupSound);
         string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
 
         if (File.Exists(filePath))

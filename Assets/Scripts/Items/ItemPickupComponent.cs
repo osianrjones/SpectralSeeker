@@ -45,12 +45,12 @@ public class ItemPickupComponent : MonoBehaviour
                     var playerScore = collision.GetComponent<PlayerScoreComponent>();
                     playerScore.IncrementScore(worth);
 
-                    SoundManager.Instance.PlaySFX(coinPickupSound);
+                    ServiceLocator.Get<ISoundService>().PlaySFX(coinPickupSound);
                     coin.Destroy();
                 }
                 else
                 {
-                    SoundManager.Instance.PlaySFX(pickupSound);
+                    ServiceLocator.Get<ISoundService>().PlaySFX(pickupSound);
                     inventory.AddItemToInventory(itemIcon, itemName);
                     gameObject.gameObject.SetActive(false);
                 }

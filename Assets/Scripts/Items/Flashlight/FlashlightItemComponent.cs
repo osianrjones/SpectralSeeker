@@ -38,7 +38,7 @@ public class FlashlightItemComponent : MonoBehaviour, IItem
 
     public void ToggleUse()
     {
-        SoundManager.Instance.PlaySFX(pickupSound);
+        ServiceLocator.Get<ISoundService>().PlaySFX(pickupSound);
         isActivated = !isActivated;
         torchLight.enabled = !torchLight.enabled;
     }

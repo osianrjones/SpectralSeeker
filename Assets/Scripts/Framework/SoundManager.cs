@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoBehaviour, ISoundService
 {
     public static SoundManager Instance;
 
