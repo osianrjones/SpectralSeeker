@@ -121,7 +121,8 @@ public class Leaderboard : MonoBehaviour, ILeaderboard
 
     public int estimatePosition(int score)
     {
-        LeaderboardEntry entry = leaderboard.leaderboard.FindLast(p => p.score < score);
+
+        LeaderboardEntry entry = leaderboard.leaderboard.OrderByDescending(s => s.score).ToList().Find(p => p.score < score);
         int index = leaderboard.leaderboard.IndexOf(entry);
 
         return index;
