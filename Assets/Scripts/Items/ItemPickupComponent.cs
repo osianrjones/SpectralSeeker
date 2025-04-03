@@ -6,6 +6,9 @@ public class ItemPickupComponent : MonoBehaviour
     [SerializeField] private Sprite itemIcon;
     [SerializeField] private string itemName;
     [SerializeField] private float pickupCooldown;
+    [SerializeField] private AudioClip pickupSound;
+    [SerializeField] private AudioClip coinPickupSound;
+
     private bool canBePickedUp = false;
 
     public event Action ScrollPickedUp;
@@ -33,6 +36,7 @@ public class ItemPickupComponent : MonoBehaviour
                 if (itemName.Contains("Scroll"))
                 {
                     ScrollPickedUp?.Invoke();
+
                 } else if (itemName.Contains("Coin"))
                 {
                     var coin = GetComponent<CoinItemComponent>();
@@ -40,11 +44,13 @@ public class ItemPickupComponent : MonoBehaviour
                     
                     var playerScore = collision.GetComponent<PlayerScoreComponent>();
                     playerScore.IncrementScore(worth);
-                    
+
+                    SoundManager.Instance.PlaySFX(coinPickupSound);
                     coin.Destroy();
                 }
                 else
                 {
+                    SoundManager.Instance.PlaySFX(pickupSound);
                     inventory.AddItemToInventory(itemIcon, itemName);
                     gameObject.gameObject.SetActive(false);
                 }

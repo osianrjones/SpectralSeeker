@@ -11,6 +11,7 @@ public class ScrollManagerComponent : MonoBehaviour, IScroll
     [SerializeField] InputField inputField;
     [SerializeField] private string fileName;
     [SerializeField] private float closeTime = 2f;
+    [SerializeField] private AudioClip pickupSound;
     private string basePath = "C:/Users/osian/Documents/GitHub/SpectralSeeker/Assets/StreamingAssets";
 
     private void Start()
@@ -21,6 +22,7 @@ public class ScrollManagerComponent : MonoBehaviour, IScroll
 
     public void ShowNote()
     {
+        SoundManager.Instance.PlaySFX(pickupSound);
         string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
 
         if (File.Exists(filePath))

@@ -9,6 +9,7 @@ public class FlashlightItemComponent : MonoBehaviour, IItem
     [SerializeField] private SpriteRenderer playerSprite;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float offset;
+    [SerializeField] private AudioClip pickupSound;
 
     public bool isActivated = false;
 
@@ -37,6 +38,7 @@ public class FlashlightItemComponent : MonoBehaviour, IItem
 
     public void ToggleUse()
     {
+        SoundManager.Instance.PlaySFX(pickupSound);
         isActivated = !isActivated;
         torchLight.enabled = !torchLight.enabled;
     }

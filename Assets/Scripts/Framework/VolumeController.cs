@@ -28,4 +28,9 @@ public class VolumeController : MonoBehaviour
         PlayerPrefs.SetFloat(VolumeKey, volume);
         PlayerPrefs.Save();
     }
+
+    public float GetVolume()
+    {
+        return PlayerPrefs.GetFloat(VolumeKey, 0.75f);
+    }
 }
