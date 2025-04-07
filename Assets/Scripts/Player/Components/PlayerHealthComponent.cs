@@ -7,13 +7,25 @@ public class PlayerHealthComponent : MonoBehaviour, IEntity
 {
     public float health { get; private set; }
     [SerializeField] private GameObject damageTextPrefab;
+    [SerializeField] private AudioClip lowHealthSound;
 
     public float initialHealth { get; private set; }
+
+    private bool playLowHealth = true;
 
     private void Awake()
     {
         health = 100f;
         initialHealth = health;
+    }
+
+    private void Update()
+    {
+        if (health < 30 && playLowHealth)
+        {
+            ServiceLocator.Get<ISoundService>().PlaySFX(lowHealthSound);
+            playLowHealth = false;
+        }
     }
 
     public Color DamageColor()
