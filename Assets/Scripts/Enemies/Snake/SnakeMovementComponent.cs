@@ -19,33 +19,26 @@ public class SnakeMovementComponent : MonoBehaviour
     
     void Start()
     {
-        // Randomly choose a direction at the start
-        ChooseRandomDirection();
         timer = moveDuration;
         _animator = GetComponent<SnakeAnimationComponent>();
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        _sr.flipX = direction > 0;
         GetComponent<SnakeHealthComponent>().Death += HandleDeath;
         GetComponent<SnakeCollisionComponent>().Attack += AttackPlayer;
         GetComponent<SnakeCollisionComponent>().DefaultMovement += PlayerOutOfRange;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (isMoving && !isAttacking)
         {
-            MoveEntity();
-
-            // Update the timer
-            timer -= Time.deltaTime;
-            if (timer <= 0 || CheckForWall())
+            if (CheckForWall())
             {
-                ReverseDirection();
-                timer = moveDuration; // Reset the timer
-            }
-        } else if (isMoving && isAttacking)
-        {
-            MoveToPlayer();
+                ReverseDirection();               
+            } 
+            MoveEntity();
+            Debug.Log("Move in direction: " + direction);
         }
     }
 
@@ -72,18 +65,11 @@ public class SnakeMovementComponent : MonoBehaviour
     private void PlayerOutOfRange()
     {
         isAttacking = false;
-        _rb.linearVelocity = Vector2.one;
-        _animator.Idle();
-    }
-
-    void ChooseRandomDirection()
-    {
-        direction = Random.Range(0, 2) * 2 - 1;
+        //_animator.Idle();
     }
 
     void MoveEntity()
     {
-        Debug.Log("direction: " + direction);
         _rb.linearVelocity = new Vector2(direction * moveSpeed, _rb.linearVelocity.y);
     }
 
@@ -96,9 +82,9 @@ public class SnakeMovementComponent : MonoBehaviour
     bool CheckForWall()
     {
         // Cast a ray in the direction of movement to detect walls
-        float rayLength = 0.3f; // Adjust based on the size of your entity
+        float rayLength = 0.75f;
         RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(direction, 0), rayLength, wallLayer);
-        
+
         // If a wall is detected, return true
         return hit.collider != null;
     }
