@@ -34,5 +34,10 @@ public class SnakeAnimationComponent : MonoBehaviour
     {
         _animator.SetTrigger("Die");
     }
+
+    public void Attack()
+    {
+        _animator.SetTrigger("Attack");
+    }
     
 }
