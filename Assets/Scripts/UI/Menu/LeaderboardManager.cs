@@ -33,7 +33,11 @@ public class LeaderboardManager : MonoBehaviour
         string lastPlayer = Leaderboard.getLastPlayer();
         if (lastPlayer != "")
         {
-            gameObject.GetComponent<MenuManager>().getInput().text = lastPlayer;
+            if (gameObject.GetComponent<MenuManager>().getInput() != null)
+            {
+                gameObject.GetComponent<MenuManager>().getInput().text = lastPlayer;
+            }
+                
         }
       
     }
