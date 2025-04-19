@@ -19,6 +19,7 @@ public class PlayerMovementComponent : MonoBehaviour
     private Rigidbody2D _rb;
     private PlayerCollisionComponent _playerCollider;
     private PlayerState _currentState;
+    private bool alive = true;
 
     public float HorizontalInput { get; private set; }
     public bool JumpInput { get; set; }
@@ -85,11 +86,18 @@ public class PlayerMovementComponent : MonoBehaviour
 
     public void Move(float horizontalInput)
     {
-        Vector2 velocity = _rb.linearVelocity;
-        velocity.x = horizontalInput * moveSpeed;
-        
-        _rb.linearVelocityX = velocity.x;
-         HorizontalInput = horizontalInput;
+        if (alive)
+        {
+
+            Vector2 velocity = _rb.linearVelocity;
+            velocity.x = horizontalInput * moveSpeed;
+
+            _rb.linearVelocityX = velocity.x;
+            HorizontalInput = horizontalInput;
+
+            flipSprite(horizontalInput);
+        }
+      
     }
 
     public void Jump()
@@ -107,5 +115,22 @@ public class PlayerMovementComponent : MonoBehaviour
         _currentState?.Exit();
         _currentState = state;
         _currentState.Enter();
+    }
+
+    private void flipSprite(float horizontal)
+    {
+        if (horizontal > 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (horizontal < 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+    }
+
+    public void Die()
+    {
+        alive = false;
     }
 }

@@ -44,8 +44,7 @@ public class PlayerInputComponent : MonoBehaviour
                            - keyboard.aKey.ReadValue();
 
             _playerMovement.Move(horizontal);
-
-            flipSprite(horizontal);
+            
         }
 
         for (int i = 1; i <= 5; i++)
@@ -105,18 +104,6 @@ public class PlayerInputComponent : MonoBehaviour
     private void inventoryPressed(int v)
     {
         _inventoryManager.inventoryPressed(v);
-    }
-
-    private void flipSprite(float horizontal)
-    {
-        if (horizontal > 0)
-        {
-            GetComponent<SpriteRenderer>().flipX = false;
-        }
-        else if (horizontal < 0)
-        {
-            GetComponent<SpriteRenderer>().flipX = true;
-        }
     }
 
     private void FixedUpdate()

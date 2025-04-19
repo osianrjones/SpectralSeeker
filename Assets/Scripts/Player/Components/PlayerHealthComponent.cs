@@ -70,6 +70,7 @@ public class PlayerHealthComponent : MonoBehaviour, IEntity
     private void Die()
     {
         gameObject.GetComponent<PlayerAnimationComponent>().Die();
+        gameObject.GetComponent<PlayerMovementComponent>().Die();
     }
 
     public void Heal(int amount)
