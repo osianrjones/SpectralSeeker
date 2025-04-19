@@ -5,9 +5,11 @@ using UnityEngine.UI;
 public class ScoreComponent : MonoBehaviour
 {
     [SerializeField] private Text scoreText;
-    private int lastScore = 0;
-    
     [SerializeField] private PlayerScoreComponent _playerScore;
+    [SerializeField] private Text nextHighScore;
+
+
+    private int lastScore = 0;
     
     private int RetrieveScore()
     {
@@ -17,11 +19,14 @@ public class ScoreComponent : MonoBehaviour
     private void Update()
     {
         int score = RetrieveScore();
+        int differenceToNextPosition = Leaderboard.Instance.scoreNeededForNextPosition(Leaderboard.activeUser);
 
         if (score != lastScore)
         {
             scoreText.text = score.ToString();
             lastScore = score;
         }
+
+        nextHighScore.text = differenceToNextPosition.ToString();
     }
 }

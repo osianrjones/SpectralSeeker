@@ -150,6 +150,33 @@ public class Leaderboard : MonoBehaviour, ILeaderboard
         }
     }
 
+    public int playerPosition(string username)
+    {
+        if (leaderboard == null)
+        {
+            loadLeaderboard();
+        }
+        int position = leaderboard.leaderboard.FindIndex(p => p.username == username);
+        return position == -1 ? leaderboard.leaderboard.Count : position + 1;
+    }
+
+    public int scoreNeededForNextPosition(string username)
+    {
+        if (leaderboard == null)
+        {
+            loadLeaderboard();
+        }
+        int position = playerPosition(username);
+
+        if (position == 0)
+        {
+            return 0;
+        }
+
+        return leaderboard.leaderboard[position - 1].score - leaderboard.leaderboard[position].score;
+    }
+
+
     public void lastPlayer(string player)
     {
         Leaderboard.leaderboard.lastPlayer = player;
