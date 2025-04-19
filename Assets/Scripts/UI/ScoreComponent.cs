@@ -18,6 +18,7 @@ public class ScoreComponent : MonoBehaviour
 
     private void Update()
     {
+        Leaderboard.Instance.TempUpdateScore(lastScore);
         int score = RetrieveScore();
         int differenceToNextPosition = Leaderboard.Instance.scoreNeededForNextPosition(Leaderboard.activeUser);
 
@@ -26,7 +27,7 @@ public class ScoreComponent : MonoBehaviour
             scoreText.text = score.ToString();
             lastScore = score;
         }
-
-        nextHighScore.text = differenceToNextPosition.ToString();
+        Debug.Log(differenceToNextPosition);
+        nextHighScore.text = (differenceToNextPosition - score).ToString();
     }
 }

@@ -104,6 +104,31 @@ public class Leaderboard : MonoBehaviour, ILeaderboard
 
     }
 
+    public void TempUpdateScore(int score)
+    {
+        string username = activeUser;
+        if (leaderboard != null)
+        {
+            var entry = leaderboard.leaderboard.FirstOrDefault(p => p.username == username);
+            if (entry != null)
+            {
+                if (score > entry.score)
+                {
+                    entry.score = score;
+                }
+            }
+            else
+            {
+                leaderboard.leaderboard.Add(new LeaderboardEntry(username, score));
+            }
+            leaderboard.leaderboard = leaderboard.leaderboard.OrderByDescending(s => s.score).ToList();
+        }
+        else
+        {
+            loadLeaderboard();
+        }
+    }
+
     public static List<LeaderboardEntry> TopScores(int count = 10)
     {
         if (leaderboard != null)
@@ -173,7 +198,7 @@ public class Leaderboard : MonoBehaviour, ILeaderboard
             return 0;
         }
 
-        return leaderboard.leaderboard[position - 1].score - leaderboard.leaderboard[position].score;
+        return leaderboard.leaderboard[position - 2].score + 1;
     }
 
 

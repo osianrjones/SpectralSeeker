@@ -1,9 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LeaderboardPosition : MonoBehaviour
 {
     [SerializeField] GameObject positionObject;
+    [SerializeField] GameObject upArrow;
 
     private Text positionText;
     private int position;
@@ -33,7 +35,24 @@ public class LeaderboardPosition : MonoBehaviour
         {
             position = newPosition;
             positionText.text = position.ToString();
-            //show green up arrow
+            upArrow.SetActive(true);
+            StartCoroutine(MoveUpArrow());
         }
+    }
+
+  
+    private IEnumerator MoveUpArrow()
+    {
+        Vector3 originalPosition = upArrow.transform.position;
+        Vector3 targetPosition = originalPosition + new Vector3(0, 10, 0);
+        float duration = 0.5f;
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            upArrow.transform.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / duration));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        upArrow.SetActive(false);
     }
 }
