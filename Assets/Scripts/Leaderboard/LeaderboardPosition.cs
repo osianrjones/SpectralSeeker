@@ -42,17 +42,19 @@ public class LeaderboardPosition : MonoBehaviour
 
   
     private IEnumerator MoveUpArrow()
-    {
-        Vector3 originalPosition = upArrow.transform.position;
-        Vector3 targetPosition = originalPosition + new Vector3(0, 10, 0);
-        float duration = 0.5f;
-        float elapsedTime = 0f;
-        while (elapsedTime < duration)
         {
-            upArrow.transform.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / duration));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        upArrow.SetActive(false);
+            Vector3 originalPosition = upArrow.transform.position;
+            Vector3 targetPosition = originalPosition + new Vector3(0, 0.5f, 0);
+            float duration = 2f;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < duration)
+            {
+                upArrow.transform.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / duration));
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            upArrow.SetActive(false);
     }
 }
