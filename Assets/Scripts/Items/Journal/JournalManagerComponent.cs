@@ -1,10 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class JournalManagerComponent : MonoBehaviour, IItem
 {
     [SerializeField] GameObject journalPanel;
-    [SerializeField] InputField inputField;
+    [SerializeField] Text inputField;
 
     private string key = "JournalNotes";
 

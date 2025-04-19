@@ -44,7 +44,6 @@ public class PlayerInputComponent : MonoBehaviour
                            - keyboard.aKey.ReadValue();
 
             _playerMovement.Move(horizontal);
-            
         }
 
         for (int i = 1; i <= 5; i++)
