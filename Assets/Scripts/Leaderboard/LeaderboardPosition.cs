@@ -9,6 +9,7 @@ public class LeaderboardPosition : MonoBehaviour
 
     private Text positionText;
     private int position;
+    private bool initialize = true;
 
     private void Awake()
     {
@@ -17,9 +18,9 @@ public class LeaderboardPosition : MonoBehaviour
         {
             Debug.LogError("Position Text component not found on the assigned GameObject.");
         }
+        upArrow.SetActive(false);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         position = Leaderboard.Instance.playerPosition(Leaderboard.activeUser);
@@ -31,12 +32,17 @@ public class LeaderboardPosition : MonoBehaviour
     {
        int newPosition = Leaderboard.Instance.playerPosition(Leaderboard.activeUser);
 
-        if (position != newPosition)
+        if (position != newPosition && !initialize)
         {
             position = newPosition;
             positionText.text = position.ToString();
             upArrow.SetActive(true);
             StartCoroutine(MoveUpArrow());
+        } else if (position != newPosition && initialize)
+        {
+            initialize = false;
+            position = newPosition;
+            positionText.text = position.ToString();
         }
     }
 
@@ -44,8 +50,8 @@ public class LeaderboardPosition : MonoBehaviour
     private IEnumerator MoveUpArrow()
         {
             Vector3 originalPosition = upArrow.transform.position;
-            Vector3 targetPosition = originalPosition + new Vector3(0, 0.5f, 0);
-            float duration = 2f;
+            Vector3 targetPosition = originalPosition + new Vector3(0, 2f, 0);
+            float duration = 3f;
             float elapsedTime = 0f;
 
             while (elapsedTime < duration)
@@ -56,5 +62,6 @@ public class LeaderboardPosition : MonoBehaviour
             }
 
             upArrow.SetActive(false);
+            upArrow.transform.position = originalPosition;
     }
 }
