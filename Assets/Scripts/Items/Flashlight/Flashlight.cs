@@ -8,9 +8,9 @@ public class Flashlight : Item, IItem
         _flashlightItem = GetComponent<FlashlightItemComponent>(); 
     }
 
-    public void ToggleUse()
+    public bool ToggleUse()
     {
-        _flashlightItem.ToggleUse();
+       return _flashlightItem.ToggleUse();
     }
 
 }

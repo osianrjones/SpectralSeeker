@@ -16,7 +16,7 @@ public class JournalManagerComponent : MonoBehaviour, IItem
         LoadNotes();
     }
 
-    public void ToggleUse()
+    public bool ToggleUse()
     {
         bool isOpen = journalPanel.activeSelf;
         journalPanel.SetActive(!isOpen);
@@ -30,6 +30,7 @@ public class JournalManagerComponent : MonoBehaviour, IItem
                 }
             }
         }
+        return true;
     }
 
     public void SaveNotes()

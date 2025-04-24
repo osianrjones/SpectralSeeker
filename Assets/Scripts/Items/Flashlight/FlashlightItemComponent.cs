@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -36,11 +37,12 @@ public class FlashlightItemComponent : MonoBehaviour, IItem
         }
     }
 
-    public void ToggleUse()
+    public bool ToggleUse()
     {
         ServiceLocator.Get<ISoundService>().PlaySFX(pickupSound);
         isActivated = !isActivated;
         torchLight.enabled = !torchLight.enabled;
+        return true;
     }
 
     public void TurnOff()

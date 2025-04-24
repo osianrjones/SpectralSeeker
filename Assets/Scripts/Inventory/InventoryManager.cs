@@ -63,12 +63,11 @@ public class InventoryManager : MonoBehaviour
 
         if (component is IItem item)
         {
-            item.ToggleUse();
-        }
-
-        if (component is HeartItemComponent)
-        {
-            RemoveItemFromSlot(index);
+            bool used = item.ToggleUse();
+            if (used && component is HeartItemComponent)
+            {
+                RemoveItemFromSlot(index);       
+            }
         }
         
         lastPressedItem = index;

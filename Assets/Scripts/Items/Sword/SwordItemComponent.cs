@@ -20,11 +20,12 @@ public class SwordItemComponent : MonoBehaviour, IItem
         animator.Attacked += Attack;
     }
 
-    public void ToggleUse()
+    public bool ToggleUse()
     {
         ServiceLocator.Get<ISoundService>().PlaySFX(drawSword);
         isHolding = !isHolding;
         animator.ToggleSword();
+        return true;
     }
 
     public bool Holding()
