@@ -6,6 +6,7 @@ public class LeaderboardPosition : MonoBehaviour
 {
     [SerializeField] GameObject positionObject;
     [SerializeField] GameObject upArrow;
+    [SerializeField] private AudioClip positionUpSound;
 
     private Text positionText;
     private int position;
@@ -37,6 +38,7 @@ public class LeaderboardPosition : MonoBehaviour
             position = newPosition;
             positionText.text = position.ToString();
             upArrow.SetActive(true);
+            ServiceLocator.Get<ISoundService>().PlaySFX(positionUpSound);
             StartCoroutine(MoveUpArrow());
         } else if (position != newPosition && initialize)
         {
