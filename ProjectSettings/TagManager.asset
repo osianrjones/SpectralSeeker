@@ -64,5 +64,8 @@ TagManager:
   - name: UI
     uniqueID: 3356755031
     locked: 0
+  - name: Journal
+    uniqueID: 1679907551
+    locked: 0
   m_RenderingLayers:
   - Default
