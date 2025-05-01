@@ -7,6 +7,7 @@ public class JournalManagerComponent : MonoBehaviour, IItem
     [SerializeField] GameObject journalPanel;
     [SerializeField] Text inputField;
     [SerializeField] InputField inputFieldComponent;
+    [SerializeField] AudioClip pageFlip;
 
     private string key = "JournalNotes";
     private bool isOpen = false;
@@ -48,6 +49,7 @@ public class JournalManagerComponent : MonoBehaviour, IItem
     {
         isOpen = !journalPanel.activeSelf;
         journalPanel.SetActive(isOpen);
+        ServiceLocator.Get<ISoundService>().PlaySFX(pageFlip);
 
         if (inputField.text.Contains("1"))
         {

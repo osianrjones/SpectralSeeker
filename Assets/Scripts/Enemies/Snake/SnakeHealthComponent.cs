@@ -29,6 +29,7 @@ public class SnakeHealthComponent : MonoBehaviour
             Die();
         }
 
+
         Color damageColor = DamageColor();
         ShowDamage(damage, damageColor);
     }

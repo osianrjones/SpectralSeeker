@@ -50,10 +50,12 @@ public class SnakeCollisionComponent : MonoBehaviour
                 if (hit.collider.CompareTag("Player"))
                 {
                     Debug.Log("PLAYER HIT");
+
                     PlayerInRange();
                     float playerDirection = transform.position.x > hit.collider.transform.position.x ? 1 : -1;
                     Vector3 playerPos = new Vector3(hit.collider.transform.position.x + playerDirection, transform.position.y, transform.position.z);
                     transform.position = Vector2.MoveTowards(transform.position, playerPos, Time.deltaTime);
+                   
                     this.playerDirection = playerDirection;
                     flipSprite(hit.collider.transform);
                     checkNextToPlayer(playerDirection);
@@ -71,9 +73,9 @@ public class SnakeCollisionComponent : MonoBehaviour
         }
     }
 
-    private void flipSprite(Transform transform)
+    private void flipSprite(Transform playerTransform)
     {
-        _spriteRenderer.flipX = transform.position.x > 0;
+        _spriteRenderer.flipX = transform.position.x < playerTransform.transform.position.x;
     }
 
     private void checkNextToPlayer(float direction)
