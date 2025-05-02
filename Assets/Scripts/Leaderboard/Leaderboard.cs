@@ -171,7 +171,7 @@ public class Leaderboard : MonoBehaviour, ILeaderboard
         {
             int score = leaderboard.leaderboard.Find(p => p.username == username).score;
 
-            return score == 0 ? -1 : score;
+            return score == 0 ? 0 : score;
         }
     }
 

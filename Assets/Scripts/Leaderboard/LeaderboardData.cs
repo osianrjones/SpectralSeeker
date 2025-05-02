@@ -6,5 +6,5 @@ using UnityEngine;
 public class LeaderboardData
 {
     public List<LeaderboardEntry> leaderboard = new List<LeaderboardEntry>();
-    public string lastPlayer;
+    public string lastPlayer = "Unknown";
 }

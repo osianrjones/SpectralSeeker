@@ -67,7 +67,13 @@ public class LeaderboardManager : MonoBehaviour
          int score = Leaderboard.Instance.playerScore(lastPlayer);
          int position = leaderboard.estimatePosition(score);
 
-         this.position.GetComponent<Text>().text = position.ToString();
+        if (this.position == null || this.username == null || this.score == null)
+        {
+            Debug.LogError("UI components are not assigned.");
+            return;
+        }
+
+        this.position.GetComponent<Text>().text = position.ToString();
          this.username.GetComponent<Text>().text = Leaderboard.getLastPlayer().ToString();
          this.score.GetComponent<Text>().text = score.ToString();
     }

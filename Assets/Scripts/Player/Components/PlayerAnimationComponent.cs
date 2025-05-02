@@ -1,5 +1,4 @@
 using System;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -7,7 +6,7 @@ using UnityEngine.Windows;
 public class PlayerAnimationComponent : MonoBehaviour
 {
     private Animator _animator;
-    private AnimatorController _defaultController;
+    [SerializeField] private RuntimeAnimatorController _defaultAnimatorController;
     [SerializeField] private AnimatorOverrideController animatorOverride;
     private Rigidbody2D rb;
     private bool swordEquipped = false;
@@ -18,7 +17,7 @@ public class PlayerAnimationComponent : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        _defaultController = _animator.runtimeAnimatorController as AnimatorController;
+        _animator.runtimeAnimatorController = _defaultAnimatorController;
     }
 
     private void Update()
@@ -49,7 +48,7 @@ public class PlayerAnimationComponent : MonoBehaviour
         }
         else
         {
-            _animator.runtimeAnimatorController = _defaultController;
+            _animator.runtimeAnimatorController = _defaultAnimatorController;
             swordEquipped = false;
         }
 
