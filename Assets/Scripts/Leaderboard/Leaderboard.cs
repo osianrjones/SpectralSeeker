@@ -35,7 +35,18 @@ public class Leaderboard : MonoBehaviour, ILeaderboard
         }
         else
         {
-            leaderboard = new LeaderboardData();
+            string filePath = Path.Combine(Application.streamingAssetsPath, "leaderboard.json");
+            if (File.Exists(filePath))
+            {
+                string jsonLeaderboard = File.ReadAllText(filePath);
+                leaderboard = JsonUtility.FromJson<LeaderboardData>(jsonLeaderboard);
+                SaveLeaderboard(leaderboard);
+            }
+            else
+            {
+                leaderboard = new LeaderboardData();
+                SaveLeaderboard(leaderboard);
+            }
         }
            
     }
