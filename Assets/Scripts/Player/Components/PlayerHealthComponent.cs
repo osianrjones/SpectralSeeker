@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class PlayerHealthComponent : MonoBehaviour, IEntity
+public class PlayerHealthComponent : MonoBehaviour
 {
     public float health { get; private set; }
     [SerializeField] private GameObject damageTextPrefab;

@@ -14,7 +14,7 @@ public class BatHealthBar : MonoBehaviour
         {
             if (entity)
             {
-                healthBarFill.fillAmount = entity.health / entity.initialHealth;
+                healthBarFill.fillAmount = entity.GetHealth() / entity.GetInitialHealth();
             }
             
             if (healthBarFill.fillAmount >= 1f)

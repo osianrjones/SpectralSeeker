@@ -2,13 +2,11 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BatHealthComponent : MonoBehaviour, IEntity
+public class BatHealthComponent : EntityHealth
 {
     
-    public float health { get; private set; }
     [SerializeField] private GameObject damageTextPrefab;
 
-    public float initialHealth { get; private set; }
     private BatAnimationComponent _animator;
 
     private void Awake()
@@ -18,25 +16,12 @@ public class BatHealthComponent : MonoBehaviour, IEntity
         _animator = GetComponent<BatAnimationComponent>();
     }
 
-    public void TakeDamage(float damage)
-    {
-        health -= damage;
-
-        if (health <= 0)
-        {
-            Die();
-        }
-
-        Color damageColor = DamageColor();
-        ShowDamage(damage, damageColor);
-    }
-
-    private void Die()
+    protected override void Die()
     {
         _animator.Die();
     }
 
-    public Color DamageColor()
+    protected override Color GetDamageColor()
     {
         if (health <= 0f)
         {
@@ -49,16 +34,23 @@ public class BatHealthComponent : MonoBehaviour, IEntity
         return Color.green;
     }
 
-    public void ShowDamage(float damage, Color damageColor)
+    protected override void ShowDamage(float damage, Color damageColor)
     {
-            Vector3 randomOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
-            GameObject damageText = Instantiate(damageTextPrefab, transform.position + randomOffset, Quaternion.identity);
-            FloatingDamageComponent damageComponent = damageText.GetComponent<FloatingDamageComponent>();
-            Debug.Log(damageComponent);
-            if (damageComponent != null)
-            {
-                damageComponent.SetDamage(damage, damageColor);
-            }
+        Vector3 randomOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0);
+        GameObject damageText = Instantiate(damageTextPrefab, transform.position + randomOffset, Quaternion.identity);
+        FloatingDamageComponent damageComponent = damageText.GetComponent<FloatingDamageComponent>();
+        if (damageComponent != null)
+        {
+            damageComponent.SetDamage(damage, damageColor);
+        }
     }
-    
+
+    public float GetHealth()
+    {
+        return health;
+    }
+    public float GetInitialHealth()
+    {
+        return initialHealth;
+    }
 }
